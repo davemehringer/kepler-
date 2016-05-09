@@ -120,12 +120,12 @@ TEST(JPLHorizonsRetrieverTest, retrieve) {
         ASSERT_TRUE(nearAbs(elements[1].mAnomaly, 9.095344042061222E+01, epsilon));
         ASSERT_TRUE(near(elements[1].a, 5.202958543306223, epsilon));
 
-        ASSERT_TRUE(nearAbs(elements[2].e,5.507260793819565E-02 , epsilon));
+        ASSERT_TRUE(nearAbs(elements[2].e, 0.055072607934018649734 , epsilon));
         ASSERT_TRUE(nearAbs(elements[2].i,2.487826389399676 , epsilon));
         ASSERT_TRUE(nearAbs(elements[2].node,1.135757486420357E+02 , epsilon));
-        ASSERT_TRUE(nearAbs(elements[2].peri,3.390307444035180E+02 , epsilon));
-        ASSERT_TRUE(nearAbs(elements[2].mAnomaly,1.309130431304900E+02 , epsilon));
-        ASSERT_TRUE(near(elements[2].a, 9.537280520759113, epsilon));
+        ASSERT_TRUE(nearAbs(elements[2].peri, 339.03074440815072421 , epsilon));
+        ASSERT_TRUE(nearAbs(elements[2].mAnomaly, 130.91304312584969693, epsilon));
+        ASSERT_TRUE(near(elements[2].a, 9.5372805208152726664, epsilon));
 	}
 }
 
