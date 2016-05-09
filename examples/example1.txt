@@ -1,0 +1,2 @@
+./kep -t 2457400 -b "mercury,venus,earth,moon,mars,phobos,deimos,jupiter,amalthea,io,europa,ganymede,callisto,himalia,elara, ananke, carme, leda, pasiphae, sinope,metis, themisto, callirrhoe, megaclite,taygete, chaldene, harpalyke, kalyke, iocaste, erinome, isonoe, praxidike, autonoe, thyone, saturn,janus,epimetheus, mimas,enceladus,tethys,dione,rhea,titan,iapetus,hyperion,phoebe, prometheus,pandora, uranus,miranda,ariel,umbriel,titania,oberon,neptune,triton,nereid,pluto,charon,nix,hydra,kerberos" -j 4 -h 4 -i bs -c 1e-08  -e 10000 -p 50
+

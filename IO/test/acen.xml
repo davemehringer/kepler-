@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<cbody name="ACenB" mass="0.8" time="0">
+    <body name="ACenBb" mass="3e-6" a="0.2" e="0.0" i="0.0" peri="0.0" node="0.0" mAnomaly="0.0"/>
+    <body name="ACenA"  mass="1.05" a="17"  e="0.4" i="0.0" peri="0.0" node="0.0" mAnomaly="0.0"/>
+</cbody>

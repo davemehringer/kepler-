@@ -1,0 +1,3 @@
+// the configured options and settings for Kepler
+#define Kepler_VERSION_MAJOR @Kepler_VERSION_MAJOR@
+#define Kepler_VERSION_MINOR @Kepler_VERSION_MINOR@

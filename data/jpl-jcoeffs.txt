@@ -1,0 +1,119 @@
+David,
+
+In JXYY below, X refers to the planet, YY the zonal.
+
+DE431
+Earth
+ J302      1.0826254500000000D-03  J303    -2.5324100000000000D-06
+ J304     -1.6198980000000001D-06
+
+MAR097:
+ J402     1.956608644161255E-03   J403     3.147495502044837E-05
+ J404    -1.538684158075500E-05   J405     5.726838132552375E-06
+ J406    -4.855911997138415E-06   J407    -4.104248699958376E-06
+ J408    -5.956559226330613E-07 
+
+JUP310
+ J502     1.469562477069651E-02   J503     0.000000000000000E+00
+ J504    -5.913138887463315E-04   J506     2.077510523748891E-05
+
+SAT360:
+ J602     1.629069546359586E-02   J603     0.000000000000000E+00
+ J604    -9.343510777884500E-04   J606     8.959557103488101E-05
+ J608    -1.000000000000000E-05
+
+URA111:
+ J702     3.510685384697763E-03   J704    -3.416639735448987E-05
+
+NEP086:
+ J802     3.408428530717952E-03   J804    -3.339891759006578E-05
+
+PLU043:
+ J902     0.000000000000000E+00
+
+-------------------------------------------------------------------------------
+Jon Giorgini                       |  Navigation & Mission Design Section
+Senior Analyst                     |  Solar System Dynamics Group
+Jon.Giorgini@jpl.nasa.gov          |  Jet Propulsion Laboratory
+-------------------------------------------------------------------------------
+
+From dmehring@nrao.edu  Mon Apr  7 13:03:15 2014
+Date: Mon, 07 Apr 2014 16:03:09 -0400
+From: David Mehringer <dmehring@nrao.edu>
+To: "Jon D. Giorgini" <jdg@tycho.jpl.nasa.gov>
+Subject: Re: FW: jpl horizons gravitational harmonic J coeffs
+
+Thanks Jon and apologies I wasn't clearer about what I was doing. I 
+understand that beyond a couple hundred of planetary radii, a point mass 
+model is adequate. Could you also please provide similar data Horizons 
+uses for other planets (and Pluto if applicable) for natural satellite 
+solutions?
+Thanks!
+
+On 04/07/2014 03:47 PM, Jon D. Giorgini wrote:
+Yes, for natural satellite solutions, gravity models for the
+individual planets are used, typically J2 up to perhaps J4.
+
+The planetary ephemeris solution is separate from the individual
+natural satellite solutions and the non-point mass terms are in
+the noise at planetary distances.
+
+For the JUP310 natural satellite solution, which include Amalthea:
+
+  J502     1.469562477069651E-02   J503     0.000000000000000E+00
+  J504    -5.913138887463315E-04   J506     2.077510523748891E-05
+
+... so J2-J6 for that case.
+
+Regards,
+-------------------------------------------------------------------------------
+Jon Giorgini                       |  Navigation & Mission Design Section
+Senior Analyst                     |  Solar System Dynamics Group
+Jon.Giorgini@jpl.nasa.gov          |  Jet Propulsion Laboratory
+-------------------------------------------------------------------------------
+
+To: "Jon D. Giorgini" <jdg@tycho.jpl.nasa.gov>
+Subject: Re: FW: jpl horizons gravitational harmonic J coeffs
+
+On 04/07/2014 03:02 PM, Jon D. Giorgini wrote:
+Dave,
+
+Don Yeomans forwarded your email to me for response.
+
+Currently for asteroid integrations, a J2 of 10826359.E-10
+is considered when the object comes within 0.01 au of Earth.
+Otherwise point-mass, and for other planets, point-mass.
+Thanks Jon,
+That is surprising to me that planets other than Earth are modeled as
+point masses. In particular, I've been tesing by comparing results for a
+Sun + Jupiter + Amalthea + Galilean satellites system. When modeling
+Jupiter as a point mass, my results for Amalthea in particular diverge
+greatly (tens of thousands of km) from Horizons after just a few orbits.
+Adding J2 and associated zonal harmonic potential my results are in much
+better agreement with Horizons, but still vary by a few hundred km after
+about 9 orbits. Adding J4 and associated potential, my results for
+Amalthea and all other bodies vary by around 10 km or less from Horizons
+after about 9 orbits.
+Planetary ephemerides use J2 of Sun (2.1106088532726840E-7),
+J2,J3,J4 of Earth, a 6x6 model for Moon (zonal/tesseral).
+
+-------------------------------------------------------------------------------
+Jon Giorgini                       |  Navigation & Mission Design Section
+Senior Analyst                     |  Solar System Dynamics Group
+Jon.Giorgini@jpl.nasa.gov          |  Jet Propulsion Laboratory
+-------------------------------------------------------------------------------
+
+On 4/7/14 8:26 AM, "David Mehringer" <dmehring@nrao.edu> wrote:
+
+Dr Yeomans
+I'm writing an n-body simulation and testing it using data from JPL
+Horizons. I'm to the point where I'm getting state vector results very
+close to what Horizons shows. At this point I suspect much of the
+difference can be attributed to the values of gravitational harmonic J
+coefficients I'm using vs what Horizons is using. Unfortunately, these
+values do not seem to be given in the data on the "Object Data Page"
+that Horizons produces for the planets when one generates an ephemeris.
+Can you point me to or tell me what the exact values are that Horizons
+is using for these coefficients for each planet?
+Thanks very much
+Dave Mehringer

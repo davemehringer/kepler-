@@ -1,0 +1,6 @@
+ set   EMAIL_ADDR           ""
+ set   CENTER               "@599"
+ set   REF_PLANE            "ECLIP"
+ set   START_TIME           "1900-01-01"
+ set   STOP_TIME            "2099-12-31"
+ set   STEP_SIZE            "10d"
