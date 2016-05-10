@@ -1,3 +1,19 @@
+//# Symplectic.cc
+//# Copyright (C) 2016 David Mehringer
+//# 
+//#     This program is free software: you can redistribute it and/or modify
+//#     it under the terms of the GNU General Public License as published by
+//#     the Free Software Foundation, either version 3 of the License, or
+//#     (at your option) any later version.
+//# 
+//#     This program is distributed in the hope that it will be useful,
+//#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//#     GNU General Public License for more details.
+//# 
+//#     You should have received a copy of the GNU General Public License
+//#     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//# 
 /*
 
  *      Author: dmehring
@@ -65,7 +81,7 @@ void Symplectic::integrate() {
         _tsct = _tsm->modify(_tsmd);
         if (_tsct == TimeStepManager::DECREASE) {
             _step();
-            cout << setprecision(16) << "reset time " << _currentTime << " dt " << _deltaT << endl;
+            //cout << setprecision(16) << "reset time " << _currentTime << " dt " << _deltaT << endl;
         }
         else if (_tsct == TimeStepManager::INCREASE) {
             cout << "Increased dt to " << _tsm->getDeltaT() << endl;
@@ -74,10 +90,11 @@ void Symplectic::integrate() {
         _elapsedT += _deltaT;
         auto xdiff = _inState.first[1][0] -  _inState.first[2][0];
         auto ydiff = _inState.first[1][1] -  _inState.first[2][1];
+        /*
         cout  << fixed << setw(10) << setprecision(0) << _elapsedT
                     << " " << setw(12) << setprecision(0) << sqrt(xdiff*xdiff + ydiff*ydiff)
                     << " " << setw(8) << setprecision(3) <<  _deltaT << endl;
-
+        */
         _ai = *_tsmd.aFinal;
         if (_pp && _nsteps % updateStep == 0) {
             _pp->setX(_outState.first);

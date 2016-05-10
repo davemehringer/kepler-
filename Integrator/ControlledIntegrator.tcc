@@ -41,9 +41,11 @@ template <class StepperType> void ControlledIntegrator<StepperType>::_step() {
     }
     auto xdiff = _outState[3] - _outState[6];
     auto ydiff = _outState[4] - _outState[7];
+    /*
     cout  << fixed << setw(10) << setprecision(0) << _elapsedT
             << " " << setw(12) << setprecision(0) << sqrt(xdiff*xdiff + ydiff*ydiff)
             << " " << setw(8) << setprecision(3) <<  _deltaT << endl;
+    */
 }
 
 }
