@@ -1,10 +1,10 @@
 # kepler++ (keplerpp project on github)
 Pair-wise N-body code written in C++
 
-COMMAND LINE OPTIONS
+## COMMAND LINE OPTIONS
 
 The main application is kep, built from kepler.cc. The command line options are:
-
+```
 -a amin,amax
     This is used for some, but not all integrators. Both amin and amax
     are required if -a is specified. They provide the conditions under
@@ -79,8 +79,8 @@ The main application is kep, built from kepler.cc. The command line options are:
         fehl - use the Runge-Kutta-Fehlberg 78 stepper, as implemented in boost.
             Use -c to contorl time step size.
     
-
-THIRD PARTY CODE INCLUDED IN THIS PACKAGE
+```
+## THIRD PARTY CODE INCLUDED IN THIS PACKAGE
 
 apps/osc_tbl and apps/state_tbl are from ftp://ssd.jpl.nasa.gov/pub/ssd
 and are used to automate retrieval of JPL Horizons data.
