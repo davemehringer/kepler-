@@ -63,10 +63,12 @@ The main application is kep, built from kepler.cc. The command line options are:
     The number of threads to use for the computation of distances. For a system
     n bodies it is recommended that nthreads be less than n*(n-1)/2 and that 
     nthreads also be less than or equal to the number of cores on the processing
-    machine.
+    machine. In theory, the optimal number of threads should be equal to 
+    `min(number of cores, n*(n-1)/2)`. Default is 1.
+ 
 
 -i integrator
-    The integrator to use. Supported values are:
+    The integrator to use. Must be specified. Supported values are:
         p - use basic fourth order Runge-Kutta method, use -a to control time step size
         s - use symplectic MacLachlan stepper for separable Hamiltonian system, as
             implemented in boost. Use -a for time step size control.
@@ -78,8 +80,40 @@ The main application is kep, built from kepler.cc. The command line options are:
             Use -c to control time step size.
         fehl - use the Runge-Kutta-Fehlberg 78 stepper, as implemented in boost.
             Use -c to contorl time step size.
+
+-j nthreads
+    The number of threads to use for the computation of accelerations. For a system
+    n bodies it is recommended that nthreads be less than n*(n-1)/2 and that 
+    nthreads also be less than or equal to the number of cores on the processing
+    machine. In theory, the optimal number of threads should be equal to 
+    `min(number of cores, n*(n-1)/2)`. Default is 1.
+ 
+-p nsteps
+    Update the plot every nsteps. If not specified, no plotting is used. A small value
+    will noticeably impact performance. A value of around 50 is normally a good choice.
+
+-s nsteps
+    As an alternative to the -e option, this option indicates that the simulation should
+    be ended after nsteps. Exactly one of -e or -s must be specified.
+
+-t start_time
+    Start time, in days, of the simulation. Normally only useful for solar system
+    simulations (-b), in which case this value is in Julian Days and must be specified.
     
 ```
+
+## EXAMPLES
+
+Run a solar system simulation for the bodies given in the -b option, starting at Julian Day 2457400
+(given by the -t option), using four acceleration calculation threads (-j), four distance calculation
+threads (-h), using the Burlirsch-Stoer stepper algorithm (-i), with maximum absolute and 
+relative errors of 1e-8 and 1e-8 (-c), ending 10,000 simulated days after the start (-e),
+and update the plot every 50 steps.
+
+```
+./kep -t 2457400 -b "mercury,venus,earth,moon,mars,phobos,deimos,jupiter,amalthea,io,europa,ganymede,callisto,himalia,elara, ananke, carme, leda, pasiphae, sinope,metis, themisto, callirrhoe, megaclite,taygete, chaldene, harpalyke, kalyke, iocaste, erinome, isonoe, praxidike, autonoe, thyone, saturn,janus,epimetheus, mimas,enceladus,tethys,dione,rhea,titan,iapetus,hyperion,phoebe, prometheus,pandora, uranus,miranda,ariel,umbriel,titania,oberon,neptune,triton,nereid,pluto,charon,nix,hydra,kerberos" -j 4 -h 4 -i bs -c 1e-08, 1-e08  -e 10000 -p 50
+```
+
 ## THIRD PARTY CODE INCLUDED IN THIS PACKAGE
 
 apps/osc_tbl and apps/state_tbl are from ftp://ssd.jpl.nasa.gov/pub/ssd
