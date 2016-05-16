@@ -1,6 +1,28 @@
 # kepler++ (keplerpp project on github)
 Pair-wise N-body code written in C++
 
+## DEPENDENCES
+```
+Google Test https://github.com/google/googletest
+```
+
+## BUILDING
+
+CMake is used for configuration. It is recommended you create a build directory
+at the same level as the source directory (which we call src here, and cd into the build directory. 
+Then do, at a minimum,
+```
+cmake ../src
+```
+
+If you do not have the google test package installed in a standard location, you will need to specify
+where the associated header files and library are on the cmake command line, eg
+
+```
+cmake ../src -DGTEST_INCLUDE_DIR=/path/to/gtest/googletest-release-1.7.0/include -DGTEST_MAIN_LIBRARY=/path/to/gtest/libgtest.a
+``` 
+
+
 ## COMMAND LINE OPTIONS
 
 The main application is kep, built from kepler.cc. The command line options are:
