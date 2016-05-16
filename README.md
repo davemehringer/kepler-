@@ -1,10 +1,22 @@
 # kepler++ (keplerpp project on github)
 Pair-wise N-body code written in C++
 
+## GETTING
+
+This project is hosted on github. To retrieve the source, it is recommended that you create
+a directory called kepler++ or keplerpp and cd into it, and then run
+
+```
+git clone https://github.com/davemehringer/keplerpp src
+```
+
+which will clone the source into a directory called `src`.
+
 ## DEPENDENCES
-```
+
 Google Test https://github.com/google/googletest
-```
+
+Boost odeint (at least version 1.59) http://headmyshoulder.github.io/odeint-v2
 
 ## BUILDING
 
