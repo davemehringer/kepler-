@@ -18,6 +18,8 @@ Google Test https://github.com/google/googletest
 
 Boost odeint (at least version 1.59) http://headmyshoulder.github.io/odeint-v2
 
+GCC compiler (at least version 4.8 to support C++11)
+
 ## BUILDING
 
 CMake is used for configuration. It is recommended you create a build directory
