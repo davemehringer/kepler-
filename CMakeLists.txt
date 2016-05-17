@@ -10,17 +10,21 @@ configure_file (
   "${PROJECT_SOURCE_DIR}/config/KeplerConfig.h.in"
   "${PROJECT_BINARY_DIR}/config/KeplerConfig.h"
 )
- 
+
+find_package(
+    Boost 1.59.0 REQUIRED 
+)
+
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    #target_link_libraries(${Boost_LIBRARIES})
+endif()
+
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
 include_directories("${PROJECT_BINARY_DIR}")
 
 SET( CMAKE_CXX_FLAGS "-std=c++11 -pthread -Wall" ) 
- 
-# current install version of boost has bug that does not allow
-# compile in some instances, lastest version does not have this
-# bug
-include_directories(BEFORE /home/dmehring/boost_1_59_0) 
 
 include_directories (${CMAKE_SOURCE_DIR})
  

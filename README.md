@@ -34,6 +34,10 @@ where the associated header files and library are on the cmake command line, eg
 cmake ../src -DGTEST_INCLUDE_DIR=/path/to/gtest/googletest-release-1.7.0/include -DGTEST_MAIN_LIBRARY=/path/to/gtest/libgtest.a
 ``` 
 
+If you do not have version 1.59 or later of boost installed in a standard location, you will need
+to specify the boost root directory on the cmake command line, eg
+```
+cmake ../src -DBOOST_ROOT=$HOME/boost_1_59_0
 
 ## COMMAND LINE OPTIONS
 
