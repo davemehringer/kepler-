@@ -31,7 +31,6 @@ include_directories (${CMAKE_SOURCE_DIR})
 add_library(
 	kepler SHARED 
     AccelerationCalculator/PairWiseAccelerationCalculator.cc
-#    AccelerationCalculator/SerialTargetedAccelerationCalculator.cc
     AccelerationCalculator/ThreadedPairWiseAccelerationCalculator.cc
 	BodyFrameRotMatrix/EarthFrameRotMatrix.cc
 	BodyFrameRotMatrix/JupiterFrameRotMatrix.cc
@@ -39,7 +38,6 @@ add_library(
 	BodyFrameRotMatrix/NeptuneFrameRotMatrix.cc
 	BodyFrameRotMatrix/SaturnFrameRotMatrix.cc
 	BodyFrameRotMatrix/UranusFrameRotMatrix.cc
-#	DistanceCalculator/SerialTargetedDistanceCalculator.cc
 	DistanceCalculator/ThreadedDistanceCalculator.cc
 	DistanceCalculator/UnthreadedDistanceCalculator.cc
     Exception/KeplerException.cc
@@ -55,7 +53,6 @@ add_library(
 	Integrator/Symplectic.cc
 	Integrator/SymplecticRknSB3AM4Mclachlan.cc
     Integrator/SymplecticRknSB3AMclachlan.cc
-#	Integrator/TargetedRungeKutta.cc
 	IO/IO.cc
     IO/XMLSystemFileReader.cc
 	SolarSystem/JPLHorizonsRetriever.cc
@@ -70,8 +67,6 @@ add_library(
 	SolarSystem/SSComparer.cc
     SolarSystem/SSObjects.cc
     TimeStepManager/AccelerationTimeStepManager.cc
- #   TimeStepManager/TargetedAccelerationTimeStepManager.cc
-    
 )
 
 include (CTest)
@@ -102,7 +97,6 @@ INSTALL(
 	FILES
 	AccelerationCalculator/AccelerationCalculator.h
 	AccelerationCalculator/PairWiseAccelerationCalculator.h
-	# AccelerationCalculator/SerialTargetedAccelerationCalculator.h
 	AccelerationCalculator/ThreadedPairWiseAccelerationCalculator.h
 	BodyFrameRotMatrix/BodyFrameRotMatrix.h
 	BodyFrameRotMatrix/EarthFrameRotMatrix.h
@@ -112,7 +106,6 @@ INSTALL(
     BodyFrameRotMatrix/SaturnFrameRotMatrix.h
     BodyFrameRotMatrix/UranusFrameRotMatrix.h
     DistanceCalculator/DistanceCalculator.h
-    # DistanceCalculator/SerialTargetedDistanceCalculator.h
     DistanceCalculator/ThreadedDistanceCalculator.h
     DistanceCalculator/UnthreadedDistanceCalculator.h
     Exception/KeplerException.h
@@ -129,7 +122,6 @@ INSTALL(
 	Integrator/Symplectic.h
     Integrator/SymplecticRknSB3AM4Mclachlan.h
 	Integrator/SymplecticRknSB3AMclachlan.h
-	# Integrator/TargetedRungeKutta.h
 	IO/IO.h
 	IO/XMLSystemFileReader.h
 	SolarSystem/JPLHorizonsRetriever.h
@@ -147,7 +139,6 @@ INSTALL(
 	SolarSystem/SSComparer.h
 	SolarSystem/SSObjects.h
 	TimeStepModifier/AccelerationTimeStepMananger.h
-	#TimeStepModifier/TargetedAccelerationTimeStepMananger.h
 	TimeStepModifier/TimeStepManager.h
 	DESTINATION "include/kepler"
 )
