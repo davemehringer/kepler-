@@ -60,7 +60,6 @@ protected:
 
 private:
     StepperType _stepper;
-
 };
 
 }
