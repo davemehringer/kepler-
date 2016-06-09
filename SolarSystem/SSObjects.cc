@@ -410,12 +410,21 @@ void  SSObjects::_initBodies() {
 	// JPL
 	// b.j.reset(new vector<PrecType> {0, 0, 1.6290695e-2, 0, -9.343511e-4, 0, 8.959557e-5, 0, -1e-5});
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
+	/*
 	saturn->j.reset(new vector<PrecType> {
         0, 0, 1.629069546359586E-02, 0,
         -9.343510777884500E-04, 0,
         8.959557103488101E-05, 0,
         -1.000000000000000E-05
     });
+    */
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	saturn->j.reset(new vector<PrecType> {
+	    0, 0, 1.629111964057611E-02, 1.514844984134440E-06,
+	    -9.305945887751694E-04, 0,
+	    8.872819837018759E-05, 0,
+	    -1.044228535152935E-05
+	});
     // Anderson & Schubert (Table 2, Column 2)
 	// _J['699'] = [0, 0, 1.63038e-2, 0, -9.373e-4, 0, 8.43e-5, 0, -1e-5]
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
@@ -426,7 +435,9 @@ void  SSObjects::_initBodies() {
 	// _radius['699'] = 60305.7
 	// b.mu = 37931207.8;   // +/- 98
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-    saturn->mu = 3.793120665570859E+07;
+    //saturn->mu = 3.793120665570859E+07;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+   saturn->mu = 3.793120723493890E+07;
 	saturn->name = "saturn";
 	saturn->id = 699;
 	_body[saturn->id] = *saturn;
@@ -435,7 +446,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = G * 3.75e19;  // +/- 0.16
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 2.503375434781544E+00;
+	// b.mu = 2.503375434781544E+00;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 2.503458199931431E+00;
 	b.name = "mimas";
 	_body[601] = b;
 
@@ -443,7 +456,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = G * 10.805e19; // +/- 0.16
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 7.211233789588942E+00;
+	// b.mu = 7.211233789588942E+00;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 7.211185066509890E+00;
 	b.name = "enceladus";
 	_body[602] = b;
 
@@ -451,7 +466,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = G * 61.76e19;  // +/- 0.16
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 4.120932250034921E+01;
+	// b.mu = 4.120932250034921E+01;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 4.120856508658532E+01;
 	b.name = "tethys";
 	_body[603] = b;
 
@@ -459,7 +476,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = G * 109.572e19;  // +/- 0.16
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 7.311592012060677E+01;
+	// b.mu = 7.311592012060677E+01;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 7.311574218947423E+01;
 	b.name = "dione";
 	_body[604] = b;
 
@@ -467,7 +486,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = 153.94;  // +/- 0.16
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 1.539439497208566E+02;
+	// b.mu = 1.539439497208566E+02;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 1.539419035933117E+02;
 	b.name = "rhea";
 	_body[605] = b;
 
@@ -475,7 +496,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = 8978.13; //  +-  0.06
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 8.978138015653407E+03;
+	// b.mu = 8.978138015653407E+03;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 8.978137030983542E+03;
 	b.name = "titan";
 	_body[606] = b;
 
@@ -483,7 +506,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = G * 1.08e19;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 3.715249700201681E-01;
+	//b.mu = 3.715249700201681E-01;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 3.712085754472412E-01;
 	b.name = "hyperion";
 	_body[607] = b;
 
@@ -491,7 +516,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = 120.51; //   +- 0.03
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 1.205006955066812E+02;
+	//b.mu = 1.205006955066812E+02;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 1.205095752388872E+02;
 	b.name = "iapetus";
 	_body[608] = b;
 
@@ -499,7 +526,9 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = G * 0.8289e19;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 5.539027499376604E-01;
+	//b.mu = 5.539027499376604E-01;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+	b.mu = 5.532371285376407E-01;
 	b.name = "phoebe";
 	_body[609] = b;
 
@@ -523,7 +552,9 @@ void  SSObjects::_initBodies() {
     b.centerBody = saturn;
     // b.mu = G * 0.0198e20;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-    b.mu = 0;
+    // b.mu = 0;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
+    b.mu = 2.055657413000371E-04;
     b.name = "helene";
     _body[612] = b;
 
@@ -696,6 +727,130 @@ void  SSObjects::_initBodies() {
 	b.mu = 4.319516899232100E+00;
 	b.name = "miranda";
 	_body[705] = b;
+/*
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "cordelia";
+    _body[706] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "ophelia";
+    _body[707] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "bianca";
+    _body[708] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "cressida";
+    _body[709] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "desdemona";
+    _body[710] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "juliet";
+    _body[711] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "portia";
+    _body[712] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "rosalind";
+    _body[713] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    b.mu = 0;
+    b.name = "belinda";
+    _body[714] = b;
+*/
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "puck";
+    _body[715] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "caliban";
+    _body[716] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "sycorax";
+    _body[717] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "prospero";
+    _body[718] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "setebos";
+    _body[719] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "stephano";
+    _body[720] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "trinculo";
+    _body[721] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "francisco";
+    _body[722] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "margaret";
+    _body[723] = b;
+
+    b = Body();
+    b.centerBody = uranus;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/ura112.txt
+    b.mu = 0;
+    b.name = "ferdinand";
+    _body[724] = b;
 
 	shared_ptr<Body> neptune(new Body());
     neptune->bfrm.reset(new NeptuneFrameRotMatrix());
