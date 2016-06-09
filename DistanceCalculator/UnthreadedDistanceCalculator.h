@@ -34,9 +34,13 @@ namespace kepler {
 class UnthreadedDistanceCalculator: public DistanceCalculator {
 public:
 
-        static Timer _timer;
+    static Timer _timer;
 
-    UnthreadedDistanceCalculator();
+    // masses is used to determine for what pairs distances are computed.
+    // If both masses in a pair are zero, their distance is not computed because
+    // the accelerations of one due to the other will not be computed (because
+    // it is always 0).
+    UnthreadedDistanceCalculator(const vector<PrecType>& masses = vector<PrecType>());
 
     ~UnthreadedDistanceCalculator();
 
@@ -51,18 +55,21 @@ public:
         DMatrix& d, DMatrix& d2, VMatrix& dv, VMatrix& diff, const Vvector& x
     );
 
-    /*
-    // for boost steppers
-    virtual void compute(
-            DMatrix& d, DMatrix& d2, VMatrix& dv, VMatrix& diff, const vector<PrecType>& q
-    );
-*/
 private:
     Vvector::const_iterator _xiter, _yiter, _xend;
     int _i = 0;
     int _j = 0;
     Vector _unit, _scratch;
+    vector<bool> _positiveMass;
+    vector<bool>::const_iterator _p1, _p2;
+    bool _hasZeroMassPair;
+
+     void _computeWithZeroMassPairs(
+        DMatrix& d, DMatrix& d2, VMatrix& dv, VMatrix& diff, const Vvector& x
+    );
 };
+
+
 
 }
 

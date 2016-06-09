@@ -33,9 +33,8 @@ vector<vector<Timer>> ThreadedDistanceCalculator::threadTimers(8, vector<Timer>(
 
 ThreadedDistanceCalculator::ThreadedDistanceCalculator(
     int maxThreads, int nBodies
-) : _maxThreads(min(maxThreads, nBodies/2*(nBodies-1))), _scratch(_maxThreads),
-    _unit(_maxThreads), _x(), _bodyPairs(maxThreads), _biter(maxThreads),
-    _bend(maxThreads),_threads(_maxThreads) {
+) : _maxThreads(min(maxThreads, nBodies*(nBodies-1)/2)),
+        _bodyPairs(_maxThreads) ,_threads(_maxThreads)  {
     pair<int, int> p;
     int threadID = 0;
     for (int i=0; i<nBodies; ++i) {
@@ -47,34 +46,28 @@ ThreadedDistanceCalculator::ThreadedDistanceCalculator(
             }
         }
     }
-    _tpairs.resize(_maxThreads);
-    _td2.resize(_maxThreads);
-    _tdv.resize(_maxThreads);
-    int npairs = nBodies*(nBodies-1)/2;
-    int nmin = npairs/_maxThreads;
-    int nleft = npairs % _maxThreads;
-    threadID = 0;
-    //int count = 0;
+}
+
+ThreadedDistanceCalculator::ThreadedDistanceCalculator(
+    int maxThreads, const vector<PrecType>& masses
+) {
+    auto c = std::count(begin(masses), end(masses), 0);
+    int nBodies = masses.size();
+    int npairs = nBodies*(nBodies-1)/2 - c*(c-1)/2;
+    _maxThreads = min(maxThreads, npairs);
+    _bodyPairs.resize(_maxThreads);
+    _threads.resize(_maxThreads);
+    int threadID = 0;
     for (int i=0; i<nBodies; ++i) {
-            for (int j=i+1; j<nBodies; ++j) {
-                _tpairs[threadID].push_back(pair<int,int>(i, j));
-                int s = _tpairs[threadID].size();
-                if (nleft == 0 && s == nmin) {
-                    ++threadID;
-                }
-                else if (s == nmin + 1) {
-                    ++threadID;
-                    --nleft;
+        for (int j=i+1; j<nBodies; ++j) {
+            if (masses[i] != 0 || masses[j] != 0) {
+                _bodyPairs[threadID].push_back(pair<int, int>(i, j));
+                ++threadID;
+                if (threadID >= _maxThreads) {
+                    threadID = 0;
                 }
             }
-    }
-    auto vvd2 = begin(_td2);
-    auto vvdv = begin(_tdv);
-    for (const auto& t: _tpairs) {
-        vvd2->resize(t.size());
-        vvdv->resize(t.size());
-        ++vvd2;
-        ++vvdv;
+        }
     }
 }
 
@@ -105,10 +98,10 @@ void ThreadedDistanceCalculator::_compute(
     for (const auto& bp: _bodyPairs[threadID]) {
         i = bp.first;
         j = bp.second;
-        _x->operator[](i).subtract(_diff->operator[](i)[j], _x->operator[](j));
-        _diff->operator[](i)[j].magAndmag2AndUnit(_d->operator[](i)[j], _d2->operator[](i)[j], _dv->operator[](i)[j]);
-        _d2->operator[](j)[i] = _d2->operator[](i)[j];
-        _dv->operator[](i)[j].negate(_dv->operator[](j)[i]);
+        (*_x)[i].subtract((*_diff)[i][j], (*_x)[j]);
+        (*_diff)[i][j].magAndmag2AndUnit((*_d)[i][j], (*_d2)[i][j], (*_dv)[i][j]);
+        (*_d2)[j][i] = (*_d2)[i][j];
+        (*_dv)[i][j].negate((*_dv)[j][i]);
     }
 }
 
