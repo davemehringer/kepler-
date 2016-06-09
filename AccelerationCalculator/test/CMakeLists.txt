@@ -6,7 +6,6 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(
 	tests
 	tPairWiseAccelerationCalculator
-	#tSerialTargetedAccelerationCalculator
 )
 
 foreach (test ${tests})
