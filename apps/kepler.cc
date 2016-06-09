@@ -178,10 +178,13 @@ int main(int argc, char **argv) {
     unique_ptr<TimeStepManager> tsm;
 
         if (nthreads == 1) {
-            dc.reset(new UnthreadedDistanceCalculator());
+            dc.reset(new UnthreadedDistanceCalculator(system.getMasses()));
         }
         else {
-            dc.reset(new ThreadedDistanceCalculator(nthreads, bodies.size()));
+            //dc.reset(new ThreadedDistanceCalculator(nthreads, bodies.size()));
+            dc.reset(new ThreadedDistanceCalculator(nthreads, system.getMasses()));
+
+            //dc.reset(new ThreadPoolDistanceCalculator(nthreads, bodies.size()));
         }
         if (nthreads == 1) {
             ac.reset( new PairWiseAccelerationCalculator(dc.get(), &bodies));
