@@ -139,7 +139,6 @@ void JPLHorizonsRetriever::retrieve() {
 	int nTasks = 0;
 	for (const auto& bs :_bodyStruct) {
 		if (_exists(bs.outputFile)) {
-			//cout << "Found " <<bs.outputFile << endl;
 			continue;
 		}
 		cout << "Retrieve " << msg << " for " << bs.name
@@ -196,6 +195,18 @@ void JPLHorizonsRetriever::_doBodies() {
 	for (const auto& bs : _bodyStruct) {
 		string file = bs.outputFile;
 		auto goodLines = _getLines(file, 3);
+        for (auto i=1; i<3; ++i) {
+            auto& s = goodLines[i];
+            s.erase(std::remove(s.begin(), s.end(), '='), s.end());
+            s.erase(std::remove(s.begin(), s.end(), 'X'), s.end());
+            s.erase(std::remove(s.begin(), s.end(), 'Y'), s.end());
+            s.erase(std::remove(s.begin(), s.end(), 'Z'), s.end());
+            s.erase(std::remove(s.begin(), s.end(), 'V'), s.end());
+            // trim spaces from left end
+            s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
+                return !std::isspace(ch);
+            }));
+        }
 		auto xtokens = split(goodLines[1], spaces);
 		auto vtokens = split(goodLines[2], spaces);
 		Vector x, v;

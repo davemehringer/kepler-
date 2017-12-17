@@ -96,6 +96,9 @@ int main(int argc, char **argv) {
             }
             else if (x == "-h" || x == "--nthreads") {
                 nthreads = atoi(argv[i+1]);
+                if (nthreads <= 0) {
+                    throw KeplerException("-h value must be positive");
+                }
             }
             else if (x == "-i" || x == "--integrator") {
                 pairWiseIntegrator = string(argv[i+1]) == "p";
@@ -107,6 +110,9 @@ int main(int argc, char **argv) {
             }
             else if (x == "-j" || x == "--nathreads") {
                 nAccThreads = atoi(argv[i+1]);
+                if (nAccThreads <= 0) {
+                    throw KeplerException("-j value must be positive");
+                }
             }
             else if (x == "-p") {
                 plotSteps = atoi(argv[i+1]);
@@ -123,6 +129,37 @@ int main(int argc, char **argv) {
             }
         }
     }
+    cout << "amin: " << amin << endl;
+    cout << "amax: " << amax << endl;
+    cout << "bodies: " << bodyStr << endl;
+    cout << "absError: " << absError << endl;
+    cout << "relError: " << relError << endl;
+    cout << "start time: " << startTime << endl;
+    cout << "elapsed time: " << maxElapsed << endl;
+    cout << "n steps: " << nsteps << endl;
+    cout << "xml file: " << xmlFile << endl;
+    cout << "n distance computation threads: " << nthreads << endl;
+    cout << "n acceleration computation threads: " << nAccThreads << endl;
+    cout << "integrator: ";
+    if (pairWiseIntegrator) {
+        cout << "Runge-Kutta4";
+    }
+    else if (symplecticIntegrator) {
+        cout << "SymplecticRknSB3AMclachlan";
+    }
+    else if (m4) {
+        cout << "SymplecticRknSB3AM4Mclachlan";
+    }
+    else if (bs) {
+        cout << "Burlirsch-Stoer";
+    }
+    else if (karp) {
+        cout << "RK-Cash-Karp";
+    }
+    else if (fehlberg) {
+        cout << "RK-Fehlberg";
+    }
+    cout << endl;
     if (nsteps != 0 && maxElapsed != 0) {
         throw KeplerException("Cannot supply both the -s and -e options simultaneously");
     }

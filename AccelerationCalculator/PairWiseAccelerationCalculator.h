@@ -59,8 +59,7 @@ protected:
    vector< bool> _hasJ;
     vector<PrecType> _jRadLimit;
 
-
-    virtual void _compute(Vvector& res, const Vvector *const  &x);
+    void _compute(Vvector& res, const Vvector *const  &x);
 /*
     void _doJContrib(
         Vector& aj, PrecType d, PrecType d2, const Vector& diff, const Body& body

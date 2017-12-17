@@ -62,8 +62,7 @@ protected:
     virtual void _step() = 0;
 
     struct coord {
-
-        void operator()( const State &x , State &dxdt , PrecType t ) const {
+        void operator()( const State &x , State &dxdt , PrecType  ) const {
             _populateFromFirst(_xs, x);
             _populateFirstFromSecond(dxdt, x);
             _aCalc->compute(_as, &_xs);

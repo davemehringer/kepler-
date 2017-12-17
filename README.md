@@ -20,26 +20,33 @@ Boost odeint (at least version 1.59) http://headmyshoulder.github.io/odeint-v2
 
 GCC compiler (at least version 4.8 to support C++11)
 
+Xerces-c http://xerces.apache.org
+
+The expect (http://expect.sourceforge.net) executable is necessary to run the scripts provided by JPL
+
+The mayavi2 (http://docs.enthought.com/mayavi/mayavi) package for plotting support
+
 ## BUILDING
 
 CMake is used for configuration. It is recommended you create a build directory
 at the same level as the source directory (which we call src here, and cd into the build directory. 
 Then do, at a minimum,
 ```
-cmake ../src
+cmake ../src -DCMAKE_BUILD_TYPE=Release
 ```
 
 If you do not have the google test package installed in a standard location, you will need to specify
 where the associated header files and library are on the cmake command line, eg
 
 ```
-cmake ../src -DGTEST_INCLUDE_DIR=/path/to/gtest/googletest-release-1.7.0/include -DGTEST_MAIN_LIBRARY=/path/to/gtest/libgtest.a
+cmake ../src -DCMAKE_BUILD_TYPE=Release -DGTEST_INCLUDE_DIR=/path/to/gtest/googletest-release-1.7.0/include -DGTEST_LIBRARY=/path/to/gtest/libgtest.a
 ``` 
 
 If you do not have version 1.59 or later of boost installed in a standard location, you will need
 to specify the boost root directory on the cmake command line, eg
 ```
-cmake ../src -DBOOST_ROOT=$HOME/boost_1_59_0
+cmake ../src -DCMAKE_BUILD_TYPE=Release -DBOOST_ROOT=$HOME/boost_1_59_0
+```
 
 ## COMMAND LINE OPTIONS
 

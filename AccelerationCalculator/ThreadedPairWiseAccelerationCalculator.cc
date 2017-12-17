@@ -84,7 +84,7 @@ void ThreadedPairWiseAccelerationCalculator::_compute(
 }
 
 void ThreadedPairWiseAccelerationCalculator::_compute2(
-    const set<int>& idx, const Vvector *const  &x
+    const set<int>& idx, const Vvector *const  &
 ) {
     int j = 0;
     for (auto i: idx) {

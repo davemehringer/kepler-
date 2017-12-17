@@ -38,7 +38,7 @@ public:
         return *ied.nsteps >= _maxSteps;
     }
 
-    inline void setNextDeltaT(PrecType& deltaT, const IntegrationEnderData& ied) const {}
+    inline void setNextDeltaT(PrecType& , const IntegrationEnderData& ) const {}
 
 private:
     int _maxSteps = 0;

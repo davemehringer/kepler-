@@ -81,20 +81,12 @@ void Symplectic::integrate() {
         _tsct = _tsm->modify(_tsmd);
         if (_tsct == TimeStepManager::DECREASE) {
             _step();
-            //cout << setprecision(16) << "reset time " << _currentTime << " dt " << _deltaT << endl;
         }
         else if (_tsct == TimeStepManager::INCREASE) {
             cout << "Increased dt to " << _tsm->getDeltaT() << endl;
         }
         _inState = _outState;
         _elapsedT += _deltaT;
-        auto xdiff = _inState.first[1][0] -  _inState.first[2][0];
-        auto ydiff = _inState.first[1][1] -  _inState.first[2][1];
-        /*
-        cout  << fixed << setw(10) << setprecision(0) << _elapsedT
-                    << " " << setw(12) << setprecision(0) << sqrt(xdiff*xdiff + ydiff*ydiff)
-                    << " " << setw(8) << setprecision(3) <<  _deltaT << endl;
-        */
         _ai = *_tsmd.aFinal;
         if (_pp && _nsteps % updateStep == 0) {
             _pp->setX(_outState.first);

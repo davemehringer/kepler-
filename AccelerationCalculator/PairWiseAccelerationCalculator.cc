@@ -63,7 +63,7 @@ void PairWiseAccelerationCalculator::compute(
     _compute(res, x);
 }
 
-void PairWiseAccelerationCalculator::_compute(Vvector& res, const Vvector *const  &x) {
+void PairWiseAccelerationCalculator::_compute(Vvector& res, const Vvector *const  &) {
     int i = 0;
     int j = 0;
     for (const auto& body0: *_bodies) {

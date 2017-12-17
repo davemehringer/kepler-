@@ -53,7 +53,6 @@ PositionPublisher::PositionPublisher(const vector<Body>& bodies) {
         }
         oss << endl;
         auto str = oss.str();
-
         if (write(_writefd, str.c_str(), str.size()) < 0) {
             _canWrite = false;
         }
@@ -82,51 +81,13 @@ void PositionPublisher::end() {
     ostringstream oss;
     oss << "end" << endl;
     auto s = oss.str();
-    write(_writefd, s.c_str(), s.size());
+    if (write(_writefd, s.c_str(), s.size()) < 0) {
+        cerr << "write error in end()" << endl;
+    }
     close(_writefd);
     _done = true;
 }
 
-
-
-
-
-
-
-
-        /* send 7 characters in the string, including end-of-string */
-/*
-        cout << "About to send a message: " << endl;
-                write(pipefds[1], "Hi Mom!", 7);
-
-        close(pipefds[1]);
-        exit(0);
-    }
-        else   */     /* parent : receives message from child */
-   // {
-        /* close unused end of pipe */
-        /* because this process only needs to read */
-       // close(pipefds[1]);
-
-        /* read from the pipe */
-     //           read(pipefds[0], instring, 7);
-       // cout << "Just received a message that says: " << instring << endl;
-
-       // close(pipefds[0]);
-       // exit(0);
-   // }
-//}
-    /*
-    zmq::context_t context (1);
-    zmq::socket_t socket (context, ZMQ_REP);
-    */
-    //socket.bind ("tcp://*:5555");
-/*
-        //  Send data
-        zmq::message_t reply (5);
-        memcpy ((void *) reply.data (), "World", 5);
-        socket.send (reply);
-        */
 }
 
 

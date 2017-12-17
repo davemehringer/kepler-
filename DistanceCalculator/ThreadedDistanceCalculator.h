@@ -69,6 +69,7 @@ private:
 
         // threaded
         void _compute(int threadID);
+        //void _compute(int i, int j);
 
 };
 

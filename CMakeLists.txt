@@ -11,6 +11,13 @@ configure_file (
   "${PROJECT_BINARY_DIR}/config/KeplerConfig.h"
 )
 
+# add -fopenmp for openmp support
+
+set(
+    CMAKE_CXX_FLAGS 
+    "-std=c++11 -pthread -O1 -pipe -Wall -Wextra -Wno-non-template-friend -Wcast-align -Wno-comment -W -Wpointer-arith -Woverloaded-virtual -Wwrite-strings -pedantic -Wno-long-long -fsigned-char"
+)
+
 find_package(
     Boost 1.59.0 REQUIRED 
 )
@@ -20,11 +27,13 @@ if(Boost_FOUND)
     #target_link_libraries(${Boost_LIBRARIES})
 endif()
 
+find_package(
+    XercesC REQUIRED
+)
+
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
 include_directories("${PROJECT_BINARY_DIR}")
-
-SET( CMAKE_CXX_FLAGS "-std=c++11 -pthread -Wall" ) 
 
 include_directories (${CMAKE_SOURCE_DIR})
  
