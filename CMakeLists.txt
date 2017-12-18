@@ -3,7 +3,7 @@ project (kepler)
 # The version number.
 set (Kepler_VERSION_MAJOR 0)
 set (Kepler_VERSION_MINOR 1)
- 
+
 # configure a header file to pass some of the CMake settings
 # to the source codecmake copy header file to include directory
 configure_file (
@@ -14,12 +14,12 @@ configure_file (
 # add -fopenmp for openmp support
 
 set(
-    CMAKE_CXX_FLAGS 
+    CMAKE_CXX_FLAGS
     "-std=c++11 -pthread -O1 -pipe -Wall -Wextra -Wno-non-template-friend -Wcast-align -Wno-comment -W -Wpointer-arith -Woverloaded-virtual -Wwrite-strings -pedantic -Wno-long-long -fsigned-char"
 )
 
 find_package(
-    Boost 1.59.0 REQUIRED 
+    Boost 1.58.0 REQUIRED
 )
 
 if(Boost_FOUND)
@@ -36,9 +36,9 @@ find_package(
 include_directories("${PROJECT_BINARY_DIR}")
 
 include_directories (${CMAKE_SOURCE_DIR})
- 
+
 add_library(
-	kepler SHARED 
+	kepler SHARED
     AccelerationCalculator/PairWiseAccelerationCalculator.cc
     AccelerationCalculator/ThreadedPairWiseAccelerationCalculator.cc
 	BodyFrameRotMatrix/EarthFrameRotMatrix.cc
@@ -168,22 +168,22 @@ add_custom_command(
 
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/osc_tbl
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/apps/osc_tbl
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/apps/jpl/osc_tbl
     ${CMAKE_CURRENT_BINARY_DIR}/osc_tbl
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/apps/osc_tbl
+    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/apps/jpl/osc_tbl
 )
 
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/state_tbl
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/apps/state_tbl
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/apps/jpl/state_tbl
     ${CMAKE_CURRENT_BINARY_DIR}/state_tbl
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/apps/state_tbl
+    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/apps/jpl/state_tbl
 )
 
-add_custom_target(plotter ALL DEPENDS plotter.py) 
-add_custom_target(plotter_mayavi ALL DEPENDS plotter_mayavi.py) 
-add_custom_target(osctbl ALL DEPENDS osc_tbl) 
-add_custom_target(statetbl ALL DEPENDS state_tbl) 
+add_custom_target(plotter ALL DEPENDS plotter.py)
+add_custom_target(plotter_mayavi ALL DEPENDS plotter_mayavi.py)
+add_custom_target(osctbl ALL DEPENDS osc_tbl)
+add_custom_target(statetbl ALL DEPENDS state_tbl)
 
 #set(CONFIG_PY_DIR ${PROJECT_SOURCE_DIR})
 #configure_file(plotting.py.in ${PROJECT_BINARY_DIR}/plotting.py @ONLY)

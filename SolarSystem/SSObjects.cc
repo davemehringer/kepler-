@@ -419,16 +419,16 @@ void  SSObjects::_initBodies() {
     });
     */
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	saturn->j.reset(new vector<PrecType> {
-	    0, 0, 1.629111964057611E-02, 1.514844984134440E-06,
-	    -9.305945887751694E-04, 0,
-	    8.872819837018759E-05, 0,
-	    -1.044228535152935E-05
-	});
+	//saturn->j.reset(new vector<PrecType> {
+	//    0, 0, 1.629111964057611E-02, 1.514844984134440E-06,
+	//    -9.305945887751694E-04, 0,
+	//    8.872819837018759E-05, 0,
+	//    -1.044228535152935E-05
+	//});
     // Anderson & Schubert (Table 2, Column 2)
 	// _J['699'] = [0, 0, 1.63038e-2, 0, -9.373e-4, 0, 8.43e-5, 0, -1e-5]
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	saturn->radius = 60330;
+	// saturn->radius = 60330;
 	//_radius['699'] = 60268
 	// JPL
 	// Anderson & Schubert (Table 2, Column 2)
@@ -437,8 +437,18 @@ void  SSObjects::_initBodies() {
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
     //saturn->mu = 3.793120665570859E+07;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-   saturn->mu = 3.793120723493890E+07;
-	saturn->name = "saturn";
+    // saturn->mu = 3.793120723493890E+07;
+    // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+    saturn->mu = 3.793120655618811E+07;
+    saturn->radius = 60330;
+    saturn->j.reset(
+        new vector<PrecType> {
+            0, 0, 1.629133249525738E-02, 1.494723182852077E-06,
+            -9.307138534779719E-04, 0, 8.943208329411604E-05, 0,
+            -1.028848061843342E-05, 0, 1.232000000000000E-06
+        }
+    );
+    saturn->name = "saturn";
 	saturn->id = 699;
 	_body[saturn->id] = *saturn;
 
@@ -536,15 +546,17 @@ void  SSObjects::_initBodies() {
 	b.centerBody = saturn;
 	// b.mu = G * 0.0198e20;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-	b.mu = 1.265529923304381E-01;
-	b.name = "janus";
+	//b.mu = 1.265529923304381E-01;
+    b.mu = 1.265765099012197E-01;
+    b.name = "janus";
 	_body[610] = b;
 
     b = Body();
     b.centerBody = saturn;
     // b.mu = G * 0.0198e20;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-    b.mu =3.511993291794538E-02 ;
+    //b.mu =3.511993291794538E-02 ;
+    b.mu = 3.512333288208074E-02;
     b.name = "epimetheus";
     _body[611] = b;
 
@@ -554,7 +566,8 @@ void  SSObjects::_initBodies() {
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
     // b.mu = 0;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-    b.mu = 2.055657413000371E-04;
+    //b.mu = 2.055657413000371E-04;
+    b.mu = 3.424829447502984E-04;
     b.name = "helene";
     _body[612] = b;
 
@@ -578,7 +591,8 @@ void  SSObjects::_initBodies() {
     b.centerBody = saturn;
     // b.mu = G * 0.0198e20;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-    b.mu = 3.786366936451041E-04;
+    //b.mu = 3.786366936451041E-04;
+    b.mu = 3.718871247516475E-04;
     b.name = "atlas";
     _body[615] = b;
 
@@ -586,7 +600,8 @@ void  SSObjects::_initBodies() {
     b.centerBody = saturn;
     // b.mu = G * 0.0198e20;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-    b.mu =1.069074283364336E-02 ;
+    //b.mu =1.069074283364336E-02 ;
+    b.mu = 1.075208001007610E-02;
     b.name = "prometheus";
     _body[616] = b;
 
@@ -594,7 +609,8 @@ void  SSObjects::_initBodies() {
     b.centerBody = saturn;
     // b.mu = G * 0.0198e20;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
-    b.mu = 9.167191181381035E-03;
+    // b.mu = 9.167191181381035E-03;
+    b.mu = 9.290325122028795E-03;
     b.name = "pandora";
     _body[617] = b;
 
@@ -967,6 +983,12 @@ void  SSObjects::_initBodies() {
     b.mu = 63.2;
     b.name = "ceres";
     _body[2000001] = b;
+
+    b = Body();
+    b.centerBody = sun;
+    b.mu = 17.8;
+    b.name = "vesta";
+    _body[2000004] = b;
 
 	vector<PrecType> f {0, 0, 3.0, 0.5, 2.5, 0.375, 0.875, 0.0625, 0.5625};
 	for (auto& p : _body) {
