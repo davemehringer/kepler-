@@ -23,7 +23,8 @@
 
 #include <SolarSystem/JPLHorizonsRetriever.h>
 
-#include  <Exception/KeplerException.h>
+#include <config/KeplerConfig.h>
+#include <Exception/KeplerException.h>
 #include <IO/IO.h>
 #include <Math/Constants.h>
 #include <Math/Vector.h>
@@ -130,11 +131,11 @@ void JPLHorizonsRetriever::retrieve() {
 	vector<future<int> > cmdRet;
 	vector<string> cmd;
 	int maxTasks = 8;
-	string script = _outputType == VECTORS
+	string script = Kepler_SCRIPT_DIR;
+	script += _outputType == VECTORS
 		? "state_tbl" : "osc_tbl";
 	string msg = _outputType == VECTORS
 		? "state vectors" : "orbital elements";
-	script = "./" + script;
 	std::chrono::milliseconds span (100);
 	int nTasks = 0;
 	for (const auto& bs :_bodyStruct) {

@@ -4,6 +4,8 @@ project (kepler)
 set (Kepler_VERSION_MAJOR 0)
 set (Kepler_VERSION_MINOR 1)
 
+set (Kepler_SCRIPT_DIR \"${PROJECT_BINARY_DIR}/\")
+
 # configure a header file to pass some of the CMake settings
 # to the source codecmake copy header file to include directory
 configure_file (
