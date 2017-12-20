@@ -16,8 +16,8 @@ which will clone the source into a directory called `src`.
 
 Google Test https://github.com/google/googletest
 
-Boost odeint (boost version at least 1.58, odeint version at least 2.2)
-http://headmyshoulder.github.io/odeint-v2
+Version (at least 1.58) of Boost that contains the odeint libraries.
+http://www.boost.org/
 
 GCC compiler (at least version 4.8 to support C++11)
 
@@ -148,7 +148,7 @@ The main application is kep, built from kepler.cc. The command line options are:
 The -p command line option will produce an interactive plot that is updated with the body
 positions as the application runs. The following mouse and keyboard events are supported:
 
-mouse left click and drage: drag to change the viewer position at constant radius
+mouse left click and drag: drag to change the viewer position at constant radius
 
 mouse right click and drag: dragging up zooms in, dragging down zooms out
 
