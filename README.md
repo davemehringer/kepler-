@@ -42,7 +42,6 @@ where the associated header files and library are on the cmake command line, eg
 ```
 cmake ../src -DCMAKE_BUILD_TYPE=Release -DGTEST_INCLUDE_DIR=/path/to/gtest/googletest-release-1.7.0/include -DGTEST_LIBRARY=/path/to/gtest/libgtest.a
 ``` 
-```
 
 ## COMMAND LINE OPTIONS
 
