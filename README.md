@@ -24,7 +24,7 @@ Xerces-c http://xerces.apache.org
 
 The expect (http://expect.sourceforge.net) executable is necessary to run the scripts provided by JPL
 
-The mayavi2 (http://docs.enthought.com/mayavi/mayavi) package for plotting support
+The mayavi2 (at least version 4.5; http://docs.enthought.com/mayavi/mayavi) package for plotting support
 
 ## BUILDING
 
@@ -113,7 +113,6 @@ The main application is kep, built from kepler.cc. The command line options are:
     machine. In theory, the optimal number of threads should be equal to 
     `min(number of cores, n*(n-1)/2)`. Default is 1.
  
-
 -i integrator
     The integrator to use. Must be specified. Supported values are:
         p - use basic fourth order Runge-Kutta method, use -a to control time step size
@@ -148,6 +147,40 @@ The main application is kep, built from kepler.cc. The command line options are:
     simulations (-b), in which case this value is in Julian Days and must be specified.
     
 ```
+
+## PLOTTING INTERFACE
+
+The -p command line option will produce an interactive plot that is updated with the body
+positions as the application runs. The following mouse and keyboard events are supported:
+
+mouse left click and drage: drag to change the viewer position at constant radius
+
+mouse right click and drag: dragging up zooms in, dragging down zooms out
+
+single right click: when done near a body, that body then becomes the center of the view
+
+keyboard events:
+
+'>' increase the body glyph diameter by a factor of 2
+
+'<' decrease the body glyph diameter by a factor of 2
+
+'n' toggle on/off display of body names
+
+'o' toggles on/off the plotting of body paths (note that this can take some time if
+    there are a lot of points that must be plotted/cleared)
+    
+'t' toggle on/off display of body tags. A tag is a single character that the
+    application chooses. If there are many bodies, some bodies may not have tags.
+
+A key press that is a body tag will cause that body to become the center of the view
+in the next position update.
+
+If the body name and body tag are both toggled on, the body tag is displayed to the
+right of the body name. Note that '>','<' will not change the body name/tag text size
+if these are displayed. If one has zoomed the display so that the text is no longer
+legible, one should toggle names/tags off and on, in which case they will be displayed
+at a more appropriate size for the current zoom level.
 
 ## EXAMPLES
 

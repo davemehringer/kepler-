@@ -87,12 +87,11 @@ protected:
         auto nj = body.j->size();
 
         auto doJ3 = nj >= 4 && body.j->operator[](3) != 0;
-        auto doJ4 = nj >= 5 && body.j->operator[](4)  != 0;
-        auto doJ5 = nj >= 6 && body.j->operator[](5)  != 0;
-        auto doJ6 = nj >= 7 && body.j->operator[](6)  != 0;
-        auto doJ7 = nj >= 8 && body.j->operator[](7)  != 0;
-        auto doJ8 = nj >= 8 && body.j->operator[](8)  != 0;
-
+        auto doJ4 = nj >= 5 && body.j->operator[](4) != 0;
+        auto doJ5 = nj >= 6 && body.j->operator[](5) != 0;
+        auto doJ6 = nj >= 7 && body.j->operator[](6) != 0;
+        auto doJ7 = nj >= 8 && body.j->operator[](7) != 0;
+        auto doJ8 = nj >= 9 && body.j->operator[](8) != 0;
         if (doJ3 || doJ4 || doJ5 || doJ6 || doJ7 || doJ8) {
             Vector aj3;
             auto z4 = z2*z2;

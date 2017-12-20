@@ -52,14 +52,18 @@ def do_labels():
 
 def do_tags():
     global tag_map
+    global tag_list
     n = len(tag_chars)
+    tag_set_as_list = list(tag_chars)
+    # if n bodies > n tags, not all bodies will have tags
     for i in xrange(nbodies):
-        f = tag_chars[i/n]
-        z = tag_chars[i % n]
-        tag = str(z)
-        if f != tag_chars[0]:
-            tag = str(f) + str(z)
-        tag_map.append(tag)
+        if i < n:
+            z = tag_set_as_list[i % n]
+            tag = str(z)
+            tag_map[tag] = i
+            tag_list.append(tag)
+        else:
+            tag_list.append("")
 
 def hide_labels():
     global texts
@@ -99,6 +103,8 @@ def key_intercept(vtk_obj, event):
     global path_toggle
     global scale_factor
     global tag_toggle
+    global cur_key_event
+    global tag_map
     keypress = vtk_obj.GetKeyCode()
     if keypress == '>':
         scale_factor *= 2
@@ -120,21 +126,21 @@ def key_intercept(vtk_obj, event):
         elif keypress == 't':
             tag_toggle = not tag_toggle
         do_labels()
-#        if name_toggle:
-#            show_names()
-#        else:
-#            hide_names()
+    elif keypress in tag_map:
+        global center_id
+        center_id = tag_map[keypress]
+        replot_all(False)
     
 def modify_labels():
     global texts
     gcf().scene.disable_render = True
     for i in xrange(nbodies):
         if name_toggle and tag_toggle:
-            texts[i].text = names[i] + " " + tag_map[i]
+            texts[i].text = names[i] + " " + tag_list[i]
         elif name_toggle:
             texts[i].text = names[i]
         elif tag_toggle:
-            texts[i].text = tag_map[i] 
+            texts[i].text = tag_list[i] 
     gcf().scene.disable_render = False
 
 @animate(delay=50)
@@ -281,7 +287,9 @@ def replot_all(reset_zoom):
 def show_labels():
     (x, y, z) = rel_positions(False)
     (azimuth, elevation, distance, focalpoint) = view()
-    scale = 0.005*distance
+    #scale = 0.005*distance
+    scale = 0.007*distance
+
     x += 2*scale
     y += 2*scale
     z += 2*scale
@@ -290,11 +298,11 @@ def show_labels():
     texts = []
     for i in xrange(nbodies):
         if name_toggle and tag_toggle:
-            text = names[i] + " " + tag_map[i]
+            text = names[i] + " " + tag_list[i]
         elif name_toggle:
             text = names[i]
         elif tag_toggle:
-            text = tag_map[i]
+            text = tag_list[i]
         xx = text3d(
             x[i], y[i], z[i], text,
             scale=scale, color=norm_colors[i]
@@ -312,9 +320,11 @@ def update_labels():
         tt.position = (xx, yy, zz)
     gcf().scene.disable_render = False
 
-tag_chars = [
-    '0','1','2','4','5','6','7','8','9','b','d','g','h','i','k','m'
-]
+tag_chars = set([
+    '0','1','2','4','5','6','7','8','9','b','d','g','h','i','k',
+    'm','q','r','u','v','x','y','z','A','B','C','D','E','G','H',
+    'I','J','K','M','N','O','Q','R','T','U','V','X','Y','Z'
+])
 
 picker = gcf().on_mouse_pick(picker_callback)
 
@@ -329,7 +339,7 @@ f = open(pipename, 'r')
 nbodies = 0
 
 names = []
-centeridx = -1
+#centeridx = -1
 plotlines = True
 showtext = False
 update = True
@@ -338,7 +348,8 @@ lastidx = -1
 
 scale_factor = 0.03
 center_id = 0
-tag_map = []
+tag_map = {}
+tag_list = []
 
 gcf().scene.interactor.add_observer('KeyPressEvent', key_intercept); 
 colors = []
@@ -358,7 +369,5 @@ figure(gcf(), bgcolor=(0, 0, 0))
 init()
 #t = threading.Thread(target=read_loop)
 #t.start() 
-print "call myanim"
 myanim()
-print "exiting"
 

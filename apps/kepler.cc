@@ -265,7 +265,9 @@ int main(int argc, char **argv) {
     if (plotSteps > 0) {
         if (fork() == 0) {
             //execl("plotter.py", "plotter.py", nullptr);
-            execl("/usr/bin/mayavi2", "mayavi2", "plotter_mayavi.py", nullptr);
+            string scriptName = string(Kepler_SCRIPT_DIR);
+            scriptName += "plotter_mayavi.py";
+            execl("/usr/bin/mayavi2", "mayavi2", scriptName.c_str(), nullptr);
             cerr << "Error: could not launch plotter.py" << endl;
             return 1;
         }
