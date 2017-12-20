@@ -16,7 +16,8 @@ which will clone the source into a directory called `src`.
 
 Google Test https://github.com/google/googletest
 
-Boost odeint (at least version 1.59) http://headmyshoulder.github.io/odeint-v2
+Boost odeint (boost version at least 1.58, odeint version at least 2.2)
+http://headmyshoulder.github.io/odeint-v2
 
 GCC compiler (at least version 4.8 to support C++11)
 
@@ -41,11 +42,6 @@ where the associated header files and library are on the cmake command line, eg
 ```
 cmake ../src -DCMAKE_BUILD_TYPE=Release -DGTEST_INCLUDE_DIR=/path/to/gtest/googletest-release-1.7.0/include -DGTEST_LIBRARY=/path/to/gtest/libgtest.a
 ``` 
-
-If you do not have version 1.59 or later of boost installed in a standard location, you will need
-to specify the boost root directory on the cmake command line, eg
-```
-cmake ../src -DCMAKE_BUILD_TYPE=Release -DBOOST_ROOT=$HOME/boost_1_59_0
 ```
 
 ## COMMAND LINE OPTIONS
