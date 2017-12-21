@@ -56,15 +56,11 @@ protected:
     const vector<Body> * const _bodies;
     DMatrix _d, _d2;
     VMatrix _dv, _diff;
-   vector< bool> _hasJ;
+    vector<bool> _hasJ;
     vector<PrecType> _jRadLimit;
 
     void _compute(Vvector& res, const Vvector *const  &x);
-/*
-    void _doJContrib(
-        Vector& aj, PrecType d, PrecType d2, const Vector& diff, const Body& body
-    );
-*/
+
 private:
         mutable Vector _scratch;
 
