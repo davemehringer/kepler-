@@ -63,126 +63,169 @@ protected:
     inline void _doJContrib(
         Vector& aj, PrecType d, PrecType d2, const Vector& diffEc, const Body& body
     ) const {
-        /*
-        aj[0] = 0;
-        aj[1] = 0;
-        aj[2] = 0;
-        */
-        auto diffEq = diffEc*body.bfrm->ecToEq(_time, SECOND);
-        auto x = diffEq[0];
-        auto y = diffEq[1];
-        auto z = diffEq[2];
-
-        auto z2 = z*z;
-        auto dd2 = d*d;
+        const auto diffEq = diffEc*body.bfrm->ecToEq(_time, SECOND);
+        const auto& x = diffEq[0];
+        const auto& y = diffEq[1];
+        const auto& z = diffEq[2];
         // J2 term
         auto r = d/body.radius;
         auto r2 = r*r;
-        auto d5 = d2*d2*d;
+        auto d3 = d2*d;
         auto cr = body.c[2]/r2;
-        auto ff = cr*(-0.5*dd2 + 2.5*z2)/d5;
+        auto z_d = z/d;
+        auto z_d2 = z_d * z_d;
+        auto _2_5_z_d2 = 2.5*z_d2;
+        auto ff = cr*(-0.5 + _2_5_z_d2)/d3;
         aj[0] = x*ff;
         aj[1] = y*ff;
-        aj[2] = cr*z*(-1.5*dd2 + 2.5*z2)/d5;
+        aj[2] = cr*z*(-1.5 + _2_5_z_d2)/d3;
         auto nj = body.j->size();
-
-        auto doJ3 = nj >= 4 && body.j->operator[](3) != 0;
-        auto doJ4 = nj >= 5 && body.j->operator[](4) != 0;
-        auto doJ5 = nj >= 6 && body.j->operator[](5) != 0;
-        auto doJ6 = nj >= 7 && body.j->operator[](6) != 0;
-        auto doJ7 = nj >= 8 && body.j->operator[](7) != 0;
-        auto doJ8 = nj >= 9 && body.j->operator[](8) != 0;
-        if (doJ3 || doJ4 || doJ5 || doJ6 || doJ7 || doJ8) {
-            Vector aj3;
-            auto z4 = z2*z2;
+        auto doJ3  = nj >=  4 && body.j->operator[](3)  != 0;
+        auto doJ4  = nj >=  5 && body.j->operator[](4)  != 0;
+        auto doJ5  = nj >=  6 && body.j->operator[](5)  != 0;
+        auto doJ6  = nj >=  7 && body.j->operator[](6)  != 0;
+        auto doJ7  = nj >=  8 && body.j->operator[](7)  != 0;
+        auto doJ8  = nj >=  9 && body.j->operator[](8)  != 0;
+        auto doJ9  = nj >= 10 && body.j->operator[](9)  != 0;
+        auto doJ10 = nj >= 11 && body.j->operator[](10) != 0;
+        if (
+            doJ3 || doJ4 || doJ5 || doJ6 || doJ7
+            || doJ8 || doJ9 || doJ10
+        ) {
             auto d4 = d2*d2;
-            auto d6 = d4*d2;
+            auto z_d4 = z_d2 * z_d2;
             if (doJ3) {
                 auto r3 = r2*r;
                 cr = body.c[3]/r3;
-                ff = 10*z*cr*(-1.5*d2 + 3.5*z2)/d6;
+                ff = 10*z*cr*(-1.5 + 3.5*z_d2)/d4;
                 Vector aj3 {
                     x*ff, y*ff,
-                    cr*(3.0*d4 - 30.0*d2*z2 + 35.0*z4)/d6
+                    cr*(3.0 - 30.0*z_d2 + 35.0*z_d4)/d2
                 };
                 aj += aj3;
             }
-            if (doJ4 || doJ5 || doJ6 || doJ7 || doJ8) {
+            if (
+                doJ4 || doJ5 || doJ6 || doJ7
+                || doJ8 || doJ9 || doJ10
+            ) {
                 auto r4 = r2*r2;
-                auto d2z2 = d2*z2;
                 if (doJ4) {
-                    auto d7 = d6*d;
                     cr = body.c[4]/r4;
-                    ff = 6.0*cr*(0.125*d4 - 1.75*d2z2 + 2.625*z4)/d7;
+                    ff = 6.0*cr*(0.125 - 1.75*z_d2 + 2.625*z_d4)/d3;
                     Vector aj4 {
                         ff*x, ff*y,
-                        cr*z*(3.75*d4 - 17.5*d2z2 + 15.75*z4)/d7
+                        cr*z*(3.75 - 17.5*z_d2 + 15.75*z_d4)/d3
                     };
                     aj += aj4;
                 }
-                if (doJ5 || doJ6 || doJ7 || doJ8) {
-                    auto d8 = d4*d4;
-                    auto d4z2 = d4*z2;
-                    auto d2z4 = d2*z4;
+                if (doJ5 || doJ6 || doJ7 || doJ8 || doJ9 || doJ10) {
+                    auto z_d6 = z_d2 * z_d4;
                     if (doJ5) {
-                        auto z6 = z2*z2*z2;
                         auto r5 = r4*r;
                         cr = body.c[5]/r5;
-                        ff = 56.0*cr*(0.625*d4 - 3.75*d2z2 + 4.125*z4)/d8;
+                        ff = 56.0*cr*(0.625 - 3.75*z_d2 + 4.125*z_d4)/d4;
                         Vector aj5 {
                             ff*x*z, ff*y*z,
-                            cr*(-5.0*d6 + 105.0*d4z2 - 315.0*d2z4 + 231.0*z6)/d8
+                            cr*(-5.0 + 105.0*z_d2 - 315.0*z_d4 + 231.0*z_d6)/d2
                         };
                         aj += aj5;
                     }
-                    if (doJ6 || doJ7 || doJ8) {
+                    if (doJ6 || doJ7 || doJ8 || doJ9 || doJ10) {
                         auto r6 = r4*r2;
                         if (doJ6) {
-                            auto z6 = z4*z2;
-                            auto d9 = d8*d;
                             cr = body.c[6]/r6;
-                            ff = 8.0*cr*(-0.3125*d6 + 8.4375*d4z2 - 30.9375*d2z4 + 26.8125*z6)/d9;
+                            ff = 8.0*cr*(
+                                -0.3125 + 8.4375*z_d2 - 30.9375*z_d4 + 26.8125*z_d6
+                            )/d3;
                             Vector aj6 = {
                                 ff*x, ff*y,
-                                cr*z*(-17.5*d6 + 157.5*d4z2 - 346.5*d2z4 + 214.5*z6)/d9
+                                cr*z*(
+                                    -17.5 + 157.5*z_d2 - 346.5*z_d4 + 214.5*z_d6
+                                )/d3
                             };
                             aj += aj6;
                         }
-                        if (doJ7 || doJ8) {
-                            auto d10 = d6*d4;
-                            auto z6 = z4*z2;
-                            auto z8 = z6*z2;
-                            auto d6z2 = d6*z2;
-                            auto d2z6 = d2*z6;
-                            auto d4z4 = d4*z4;
+                        if (doJ7 || doJ8 || doJ9 || doJ10) {
+                            auto z_d8 = z_d4 * z_d4;
                             if (doJ7) {
                                 auto r7 = r6*r;
                                 cr = body.c[7]/r7;
-                                ff = 144*cr*(-2.1875*d6 + 24.0625*d4z2 - 62.5625*d2z4 + 44.6875*z6)/d10;
+                                ff = 144*cr*(
+                                    -2.1875 + 24.0625*z_d2 - 62.5625*z_d4
+                                    + 44.6875*z_d6
+                                )/d4;
                                 Vector aj7 {
                                     x*z*ff,
                                     y*z*ff,
-                                    cr*(35.0*d8 - 1260.0*d6z2 + 6930.0*d4z4 - 12012.0*d2z6 + 6435.0*z8)/d10
+                                    cr*(
+                                        35.0 - 1260.0*z_d2 + 6930.0*z_d4
+                                        - 12012.0*z_d6 + 6435.0*z_d8
+                                    )/d2
                                 };
                                 aj += aj7;
                             }
-                            if (doJ8) {
-                                auto d11 = d10*d;
+                            if (doJ8 || doJ9 || doJ10) {
                                 auto r8 = r6*r2;
-                                cr = body.c[8]/r8;
-                                ff = 80*cr*(0.0546875*d8 - 2.40625*d6z2 + 15.640625*d4z4 - 31.28125*d2z6 + 18.9921875*z8)/d11;
-                                Vector aj8 {
-                                    ff*x, ff*y,
-                                    cr*z*(39.375*d8 - 577.5*d6z2 + 2252.25*d4z4 - 3217.5*d2z6 + 1519.375*z8)/d11
-                                };
-                                aj += aj8;
+                                if (doJ8) {
+                                    cr = body.c[8]/r8;
+                                    ff = 80*cr*(
+                                        0.0546875 - 2.40625*z_d2 + 15.640625*z_d4
+                                        - 31.28125*z_d6 + 18.9921875*z_d8
+                                    )/d3;
+                                    Vector aj8 {
+                                        ff*x, ff*y,
+                                        cr*z*(
+                                             39.375 - 577.5*z_d2 + 2252.25*z_d4
+                                             - 3217.5*z_d6 + 1519.375*z_d8
+                                        )/d3
+                                    };
+                                    aj += aj8;
+                                }
+                                if (doJ9 || doJ10) {
+                                    auto z_d10 = z_d6 * z_d4;
+                                    if (doJ9) {
+                                        auto r9 = r8*r;
+                                        cr = body.c[9]/r9;
+                                        ff = 1408*cr*(
+                                             0.4921875 - 8.53125*z_d2
+                                             + 38.390625*z_d4 - 62.15625*z_d6
+                                             + 32.8046875*z_d8
+                                        )/d4;
+                                        Vector aj9 {
+                                            x*z*ff, y*z*ff,
+                                            cr*(
+                                                 -63.0 + 3465.0*z_d2 - 30030.0*z_d4
+                                                 + 90090.0*z_d6 - 109395.0*z_d8
+                                                 + 46189.0*z_d10
+                                            )/d2
+                                        };
+                                        aj += aj9;
+                                    }
+                                    if (doJ10) {
+                                        auto r10 = r8*r2;
+                                        cr = body.c[10]/r10;
+                                        ff = 348*cr*(
+                                             -0.08203125 + 5.33203125*z_d2
+                                             - 53.3203125*z_d4 + 181.2890625*z_d6
+                                             - 246.03515625*z_d8
+                                             + 114.81640625*z_d10
+                                        )/d3;
+                                        Vector aj10 {
+                                            x*ff, y*ff,
+                                            cr*z*(
+                                                -346.5 + 7507.5*z_d2 - 45045.0*z_d4
+                                                + 109395.0*z_d6 - 115472.5*z_d8
+                                                + 44089.5*z_d10
+                                            )/d3
+                                        };
+                                        aj += aj10;
+                                    }
+                                }
                             }
                         }
-
                     }
                 }
             }
-
         }
         aj = aj * body.bfrm->eqToEc(_time, SECOND);
     }
