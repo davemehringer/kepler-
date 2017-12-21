@@ -990,7 +990,10 @@ void  SSObjects::_initBodies() {
     b.name = "vesta";
     _body[2000004] = b;
 
-	vector<PrecType> f {0, 0, 3.0, 0.5, 2.5, 0.375, 0.875, 0.0625, 0.5625};
+	vector<PrecType> f {
+	    0, 0, 3.0, 0.5, 2.5, 0.375, 0.875, 0.0625,
+	    0.5625, 0.0390625, 0.0859375
+	};
 	for (auto& p : _body) {
 	    auto& b = p.second;
 		_nameToID[b.name] = p.first;
