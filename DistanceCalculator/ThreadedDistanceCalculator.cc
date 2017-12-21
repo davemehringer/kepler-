@@ -91,20 +91,6 @@ void ThreadedDistanceCalculator::compute(
     for (auto& t: _threads) {
         t->join();
     }
-    /*
-    int n = _threads.size();
-#pragma omp parallel for
-    for (int i=0; i<n; ++i) {
-        _compute(i); 
-    }
-    */
-/*
-    for (int i=0; i<n; ++i) {
-        for (int j=i+1; j<n; ++j) {
-            _compute(i,j);
-        }
-    }
-    */
 }
 
 void ThreadedDistanceCalculator::_compute(
@@ -120,14 +106,5 @@ void ThreadedDistanceCalculator::_compute(
         (*_dv)[i][j].negate((*_dv)[j][i]);
     }
 }
-/*
-void ThreadedDistanceCalculator::_compute(
-    int i, int j
-) {
-    (*_x)[i].subtract((*_diff)[i][j], (*_x)[j]);
-    (*_diff)[i][j].magAndmag2AndUnit((*_d)[i][j], (*_d2)[i][j], (*_dv)[i][j]);
-    (*_d2)[j][i] = (*_d2)[i][j];
-    (*_dv)[i][j].negate((*_dv)[j][i]);
-}
-*/
+
 }
