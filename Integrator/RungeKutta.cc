@@ -28,8 +28,6 @@
 #include <Physics/NBodySystem.h>
 #include <Integrator/PositionPublisher.h>
 
-#include <iomanip>
-
 using namespace std;
 
 namespace kepler {
@@ -70,12 +68,12 @@ RungeKutta::~RungeKutta() {}
 void RungeKutta::integrate() {
     _accCalc->setTime(_startTime, SECOND);
     _accCalc->compute(_a, &_x);
-     _tsmd.aInitial = &_a;
-     _tsmd.aFinal = &_aFinal;
-     _tsmd.currentTime = _currentTime;
-     _tsmd.currentDeltaT = _deltaT;
-     auto updateStep = _pp ? _pp->getNSteps() : 0;
-     while(! _ie->end(_ied)) {
+    _tsmd.aInitial = &_a;
+    _tsmd.aFinal = &_aFinal;
+    _tsmd.currentTime = _currentTime;
+    _tsmd.currentDeltaT = _deltaT;
+    auto updateStep = _pp ? _pp->getNSteps() : 0;
+    while(! _ie->end(_ied)) {
         _step();
         if (_pp && _nsteps % updateStep == 0) {
             _pp->setX(_x);

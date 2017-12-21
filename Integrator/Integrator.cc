@@ -42,7 +42,6 @@ Integrator::Integrator(
 Integrator::~Integrator() {}
 
 void Integrator::_init() {
-
     auto n = _system->getBodies().size();
     _x.resize(n);
     _v.resize(n);
@@ -60,6 +59,7 @@ void Integrator::setPositionPublisher(
 ) {
     _pp = pp && pp->canWrite() ? pp : nullptr;
 }
+
 }
 
 

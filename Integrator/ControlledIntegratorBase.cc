@@ -37,7 +37,6 @@ namespace kepler {
 AccelerationCalculator* ControlledIntegratorBase::_aCalc = nullptr;
 Vvector ControlledIntegratorBase::_xs;
 Vvector ControlledIntegratorBase::_as;
-//Timer ControlledIntegrator::_timer;
 
 ControlledIntegratorBase::ControlledIntegratorBase(
     NBodySystem* system, AccelerationCalculator* accCalc,
@@ -68,21 +67,22 @@ void ControlledIntegratorBase::integrate() {
      _tsmd.currentDeltaT = _deltaT;
      auto updateStep = _pp ? _pp->getNSteps() : 0;
      while(! _ie->end(_ied)) {
-        _ie->setNextDeltaT(_deltaT, _ied);
-        _step();
-        _inState = _outState;
-        ++_nsteps;
-        if (_pp && _nsteps % updateStep == 0) {
-            _populateFromFirst(_x, _outState);
-            _pp->setX(_x);
-        }
-    }
-    if (_pp) {
-        _pp->end();
-    }
-    _populateFromFirst(_x, _outState);
-    _populateFromSecond(_v, _outState);
-    //cout << "SB timer duration " << _timer.totalDuration() << endl;
+         _ie->setNextDeltaT(_deltaT, _ied);
+         _step();
+         _inState = _outState;
+         ++_nsteps;
+         if (_pp && _nsteps % updateStep == 0) {
+             _populateFromFirst(_x, _outState);
+             _pp->setX(_x);
+         }
+         _currentTime += _deltaT;
+         _aCalc->setTime(_currentTime, SECOND);
+     }
+     if (_pp) {
+         _pp->end();
+     }
+     _populateFromFirst(_x, _outState);
+     _populateFromSecond(_v, _outState);
 }
 
 }

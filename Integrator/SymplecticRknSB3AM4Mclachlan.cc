@@ -26,8 +26,6 @@
 #include <Physics/NBodySystem.h>
 #include <Integrator/PositionPublisher.h>
 
-#include <iomanip>
-
 using namespace std;
 using namespace boost::numeric::odeint;
 
@@ -46,5 +44,3 @@ void SymplecticRknSB3AM4Mclachlan::_step() {
 }
 
 }
-
-

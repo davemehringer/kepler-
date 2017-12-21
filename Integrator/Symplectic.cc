@@ -26,8 +26,6 @@
 #include <Physics/NBodySystem.h>
 #include <Integrator/PositionPublisher.h>
 
-#include <iomanip>
-
 using namespace std;
 using namespace boost::numeric::odeint;
 
@@ -68,15 +66,16 @@ void Symplectic::integrate() {
     _accCalc->compute(_ai, &_x);
     _odeSystem.second._a = _ai;
     _tsmd.aFinal = &_odeSystem.second._a;
-     _tsmd.aInitial = &_ai;
-     cout << "initial " << _tsmd.aInitial << " final " << _tsmd.aFinal << endl;
-     _tsmd.currentTime = _currentTime;
-     _tsmd.currentDeltaT = _deltaT;
-     auto updateStep = _pp ? _pp->getNSteps() : 0;
-     while(! _ie->end(_ied)) {
+    _tsmd.aInitial = &_ai;
+    cout << "initial " << _tsmd.aInitial << " final " << _tsmd.aFinal << endl;
+    _tsmd.currentTime = _currentTime;
+    _tsmd.currentDeltaT = _deltaT;
+    auto updateStep = _pp ? _pp->getNSteps() : 0;
+    while(! _ie->end(_ied)) {
         _deltaT = _tsm->getDeltaT();
         _ie->setNextDeltaT(_deltaT, _ied);
         _step();
+        _accCalc->setTime(_currentTime, SECOND);
         _accCalc->compute(*_tsmd.aFinal, &_outState.first);
         _tsct = _tsm->modify(_tsmd);
         if (_tsct == TimeStepManager::DECREASE) {
@@ -87,6 +86,7 @@ void Symplectic::integrate() {
         }
         _inState = _outState;
         _elapsedT += _deltaT;
+        _currentTime += _deltaT;
         _ai = *_tsmd.aFinal;
         if (_pp && _nsteps % updateStep == 0) {
             _pp->setX(_outState.first);

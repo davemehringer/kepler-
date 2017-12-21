@@ -42,9 +42,7 @@ SymplecticRknSB3AMclachlan::SymplecticRknSB3AMclachlan(
 SymplecticRknSB3AMclachlan::~SymplecticRknSB3AMclachlan() {}
 
 void SymplecticRknSB3AMclachlan::_step() {
-    _stepper.do_step(_odeSystem , _inState, _elapsedT, _outState,   _deltaT );
+    _stepper.do_step(_odeSystem , _inState, _elapsedT, _outState, _deltaT);
 }
 
 }
-
-
