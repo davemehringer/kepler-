@@ -53,8 +53,11 @@ const RotMatrix3x3& UranusFrameRotMatrix::eqToEc(
         t /= SECOND_PER_DAY;
     }
     if (abs(_currentEqToEc.first - t) > 5) {
-        _currentEqToEc.first = t;
-        _currentEqToEc.second = _data.lower_bound(t - 5)->second.transpose();
+        //_currentEqToEc.first = t;
+        //_currentEqToEc.second = _data.lower_bound(t - 5)->second.transpose();
+        auto iter = _data.lower_bound(t - 5);
+        _currentEqToEc.first = iter->first;
+        _currentEqToEc.second = iter->second.transpose();
     }
     return _currentEqToEc.second;
 }
