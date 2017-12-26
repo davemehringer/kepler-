@@ -54,6 +54,8 @@ public:
 		// equatorial plane of central body
 		BODY,
 		ECLIPTIC,
+		// geocentric, earth equatorial plane
+		FRAME,
 		// indicates the plane has not been set
 		NULL_PLANE
 	};
@@ -68,7 +70,7 @@ public:
 		PrecType time, RefPlane refPlane
 	);
 
-	vector<Body> getBodies() const;
+	const vector<Body>& getBodies() const;
 
 	vector<Elements> getElements() const;
 

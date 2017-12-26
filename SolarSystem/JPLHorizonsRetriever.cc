@@ -47,7 +47,8 @@ namespace kepler {
 
 const map<int, string> JPLHorizonsRetriever::_refPlaneString {
 	{ (int)ECLIPTIC, "ECLIP"},
-	{ (int)BODY, "BODY"}
+	{ (int)BODY, "BODY"},
+    { (int)FRAME, "FRAME"},
 };
 
 const map<int, string> JPLHorizonsRetriever::_outTypeString {
@@ -64,12 +65,23 @@ void JPLHorizonsRetriever::add(
 	const string& bodyName, const string& centerBody,
 	PrecType time, RefPlane refPlane
 ) {
+    if (bodyName == centerBody) {
+        auto body = SSObjects::createBody(bodyName);
+        body.x = 0;
+        body.v = 0;
+        _bodies.push_back(body);
+        return;
+    }
 	static const string dir = "/tmp/kepler++";
 	if (! _exists(dir)) {
 		auto  stat = mkdir(dir.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 		if (stat == -1) {
 			throw KeplerException("Error creating directory " + dir);
 		}
+	}
+	if (centerBody == "earth" && refPlane == BODY) {
+	    // JPL doesn't do BODY if earth is center, it only does FRAME
+	    refPlane = FRAME;
 	}
 	string rp = _refPlaneString.find(refPlane)->second;
 	string ot = _outTypeString.find(_outputType)->second;
@@ -109,7 +121,7 @@ void JPLHorizonsRetriever::add(
 	myfile.close();
 }
 
-vector<Body> JPLHorizonsRetriever::getBodies() const {
+const vector<Body>& JPLHorizonsRetriever::getBodies() const {
 	return _bodies;
 }
 
