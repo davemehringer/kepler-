@@ -280,6 +280,7 @@ int main(int argc, char **argv) {
     }
     auto e0 = system.getEnergy();
     integrator->integrate();
+    cout << "finished integrating" << endl;
     auto systemFinal = system;
 
     cout << "s.getTime " << system.getTime(SECOND) << " seconds" << endl;
