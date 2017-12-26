@@ -458,7 +458,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	// b.mu = 2.503375434781544E+00;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 2.503458199931431E+00;
+	// b.mu = 2.503458199931431E+00;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 2.503629609027271E+00;
 	b.name = "mimas";
 	_body[601] = b;
 
@@ -468,7 +470,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	// b.mu = 7.211233789588942E+00;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 7.211185066509890E+00;
+	// b.mu = 7.211185066509890E+00;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 7.210841599764501E+00;
 	b.name = "enceladus";
 	_body[602] = b;
 
@@ -478,7 +482,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	// b.mu = 4.120932250034921E+01;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 4.120856508658532E+01;
+	// b.mu = 4.120856508658532E+01;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 4.120864966231671E+01;
 	b.name = "tethys";
 	_body[603] = b;
 
@@ -488,7 +494,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	// b.mu = 7.311592012060677E+01;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 7.311574218947423E+01;
+	// b.mu = 7.311574218947423E+01;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 7.311562440698799E+01;
 	b.name = "dione";
 	_body[604] = b;
 
@@ -498,7 +506,9 @@ void  SSObjects::_initBodies() {
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	// b.mu = 1.539439497208566E+02;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 1.539419035933117E+02;
+	// b.mu = 1.539419035933117E+02;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 1.539433320228564E+02;
 	b.name = "rhea";
 	_body[605] = b;
 
@@ -508,7 +518,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	// b.mu = 8.978138015653407E+03;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 8.978137030983542E+03;
+	// b.mu = 8.978137030983542E+03;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 8.978137712627313E+03;
 	b.name = "titan";
 	_body[606] = b;
 
@@ -518,7 +530,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	//b.mu = 3.715249700201681E-01;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 3.712085754472412E-01;
+	// b.mu = 3.712085754472412E-01;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 3.712505242740757E-01;
 	b.name = "hyperion";
 	_body[607] = b;
 
@@ -528,7 +542,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	//b.mu = 1.205006955066812E+02;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 1.205095752388872E+02;
+	// b.mu = 1.205095752388872E+02;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 1.205075311030973E+02;
 	b.name = "iapetus";
 	_body[608] = b;
 
@@ -538,7 +554,9 @@ void  SSObjects::_initBodies() {
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	//b.mu = 5.539027499376604E-01;
     // ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat389xl.txt
-	b.mu = 5.532371285376407E-01;
+	// b.mu = 5.532371285376407E-01;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
+	b.mu = 5.533878663162022E-01;
 	b.name = "phoebe";
 	_body[609] = b;
 
@@ -547,6 +565,7 @@ void  SSObjects::_initBodies() {
 	// b.mu = G * 0.0198e20;
 	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat382.txt
 	//b.mu = 1.265529923304381E-01;
+	// ftp://ssd.jpl.nasa.gov/pub/eph/satellites/nio/LINUX_PC/sat393.txt
     b.mu = 1.265765099012197E-01;
     b.name = "janus";
 	_body[610] = b;
