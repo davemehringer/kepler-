@@ -78,43 +78,62 @@ TEST(JPLHorizonsRetrieverTest, retrieve) {
 		}
 	}
 	{
-	    PrecType t = 2457733;
-	    JPLHorizonsRetriever jhr(JPLHorizonsRetriever::VECTORS);
-        jhr.add("megaclite", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("megaclite", "jupiter", t, JPLHorizonsRetriever::BODY);
-        jhr.add("adrastea", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("adrastea", "jupiter", t, JPLHorizonsRetriever::BODY);
-        jhr.add("metis", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("metis", "jupiter", t, JPLHorizonsRetriever::BODY);
-        jhr.add("himalia", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("himalia", "jupiter", t, JPLHorizonsRetriever::BODY);
-        jhr.add("amalthea", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("amalthea", "jupiter", t, JPLHorizonsRetriever::BODY);
-        jhr.add("phoebe", "saturn", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("phoebe", "saturn", t, JPLHorizonsRetriever::BODY);
-        jhr.add("titan", "saturn", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("titan", "saturn", t, JPLHorizonsRetriever::BODY);
-        jhr.add("janus", "saturn", t, JPLHorizonsRetriever::ECLIPTIC);
-        jhr.add("janus", "saturn", t, JPLHorizonsRetriever::BODY);
-
-        jhr.retrieve();
-        auto bodies = jhr.getBodies();
-        int n = bodies.size()/2;
-        for (auto i=0; i<n; ++i) {
-            auto j = 2*i;
-            auto xec = bodies[j].x;
-            auto ectoeq = bodies[j].centerBody->bfrm->ecToEq(t, DAY);
-            auto xeq = xec * ectoeq;
-            cout << setprecision(20) << xeq << endl;
-            cout << bodies[j+1].x << endl;
-            ASSERT_TRUE(near(bodies[j+1].x, xeq, 1e-6, 1e-6));
-            auto eqtoec = bodies[j].centerBody->bfrm->eqToEc(t, DAY);
-            auto yeq = bodies[j+1].x;
-            auto yec = yeq*eqtoec;
-            ASSERT_TRUE(near(bodies[j].x, yec, 1e-6, 1e-6));
-
-        }
-
+	    vector<PrecType> times {
+	        2450000, 2451000, 2452000, 2453000, 2454000, 2455000,
+	        2456000, 2457000, 2457733, 2458000, 2459000, 2460000
+	    };
+	    for (auto t: times) {
+	        JPLHorizonsRetriever jhr(JPLHorizonsRetriever::VECTORS);
+	        jhr.add("moon", "earth", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("moon", "earth", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("phobos", "mars", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("phobos", "mars", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("deimos", "mars", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("deimos", "mars", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("megaclite", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("megaclite", "jupiter", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("adrastea", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("adrastea", "jupiter", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("metis", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("metis", "jupiter", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("himalia", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("himalia", "jupiter", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("amalthea", "jupiter", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("amalthea", "jupiter", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("phoebe", "saturn", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("phoebe", "saturn", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("titan", "saturn", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("titan", "saturn", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("janus", "saturn", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("janus", "saturn", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("miranda", "uranus", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("miranda", "uranus", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("titania", "uranus", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("titania", "uranus", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("triton", "neptune", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("triton", "neptune", t, JPLHorizonsRetriever::BODY);
+	        jhr.add("nereid", "neptune", t, JPLHorizonsRetriever::ECLIPTIC);
+	        jhr.add("nereid", "neptune", t, JPLHorizonsRetriever::BODY);
+	        jhr.retrieve();
+	        const auto& bodies = jhr.getBodies();
+	        int n = bodies.size()/2;
+	        for (auto i=0; i<n; ++i) {
+	            auto j = 2*i;
+	            cout << bodies[j].name << endl;
+	            auto xec = bodies[j].x;
+	            cout << "xec     " << setprecision(20) << xec << endl;
+	            auto ectoeq = bodies[j].centerBody->bfrm->ecToEq(t, DAY);
+	            auto xeq = xec * ectoeq;
+	            cout << "xeq exp " << setprecision(20) << xeq << endl;
+	            cout << "xeq got " << bodies[j+1].x << endl;
+	            ASSERT_TRUE(near(bodies[j+1].x, xeq, 1e-6, 1e-6));
+	            auto eqtoec = bodies[j].centerBody->bfrm->eqToEc(t, DAY);
+	            auto yeq = bodies[j+1].x;
+	            auto yec = yeq*eqtoec;
+	            ASSERT_TRUE(near(bodies[j].x, yec, 1e-6, 1e-6));
+	            cout << endl;
+	        }
+	    }
 	}
 	{
 	    JPLHorizonsRetriever jhr1(JPLHorizonsRetriever::ELEMENTS);
@@ -157,5 +176,3 @@ int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
-
-
