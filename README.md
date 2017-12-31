@@ -1,5 +1,5 @@
 # kepler++ (keplerpp project on github)
-Pair-wise N-body code written in C++
+Pair-wise N-body code written in C++, which includes support for planeto-potential models using zonal harmonic (J) coefficents
 
 ## GETTING
 
