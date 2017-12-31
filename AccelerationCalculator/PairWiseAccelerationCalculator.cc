@@ -80,7 +80,7 @@ void PairWiseAccelerationCalculator::_compute(Vvector& res, const Vvector *const
                         _d[i][j] = _d[j][i];
                         _diff[j][i].negate(_diff[i][j]);
                     }
-                    _doJContrib(_scratch, _d[i][j], _d2[i][j], _diff[i][j], body1);
+                    doJContrib(_scratch, _d[i][j], _d2[i][j], _diff[i][j], body1);
                     res[i] += _scratch;
                 }
             }

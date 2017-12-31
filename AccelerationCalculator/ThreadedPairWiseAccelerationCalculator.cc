@@ -26,14 +26,13 @@
 #include <Physics/Body.h>
 #include <BodyFrameRotMatrix/BodyFrameRotMatrix.h>
 #include <DistanceCalculator/DistanceCalculator.h>
-//#include <IO/IO.h>
 
 using namespace std;
 
 namespace kepler {
 
 ThreadedPairWiseAccelerationCalculator::ThreadedPairWiseAccelerationCalculator(
-        DistanceCalculator* dc, const vector<Body> *const  &bodies, int nthreads
+    DistanceCalculator* dc, const vector<Body> *const  &bodies, int nthreads
 ) : PairWiseAccelerationCalculator(dc, bodies),
     _nthreads(min(nthreads, (int)bodies->size())), _threadMap(_nthreads),
     _threads(_nthreads), _scratch(_nthreads) {
@@ -59,7 +58,7 @@ ThreadedPairWiseAccelerationCalculator::ThreadedPairWiseAccelerationCalculator(
 ThreadedPairWiseAccelerationCalculator::~ThreadedPairWiseAccelerationCalculator() {}
 
 void ThreadedPairWiseAccelerationCalculator::compute(
-        Vvector& res, const Vvector *const  &x
+    Vvector& res, const Vvector *const  &x
 ) {
     _dc->compute(_d, _d2, _dv, _diff, *x);
     _a = &res;
@@ -98,12 +97,16 @@ void ThreadedPairWiseAccelerationCalculator::_compute2(
                 // an attractive force
                 _dv[i][j].times(scratch, body1.mu/_d2[i][j]);
                 _a->operator [](i) -= scratch;
-                if (_hasJ[j] && body0.centerBody && body0.centerBody->id == body1.id && _d2[i][j] < _jRadLimit[j]) {
+                if (
+                    _hasJ[j] && body0.centerBody
+                    && body0.centerBody->id == body1.id
+                    && _d2[i][j] < _jRadLimit[j]
+                ) {
                     if (i > j) {
                         _d[i][j] = _d[j][i];
                         _diff[j][i].negate(_diff[i][j]);
                     }
-                    _doJContrib(scratch, _d[i][j], _d2[i][j], _diff[i][j], body1);
+                    doJContrib(scratch, _d[i][j], _d2[i][j], _diff[i][j], body1);
                     _a->operator [](i) += scratch;
                 }
             }

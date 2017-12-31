@@ -49,21 +49,12 @@ public:
 
     inline void setTime(PrecType t, TimeUnit unit) { _time = unit == DAY ? SECOND_PER_DAY*t : t; }
 
-protected:
-
-    DistanceCalculator *_dc;
-    // system time, for things like ecliptic to equatorial rotation matrices which
-    // are time dependent
-    PrecType _time = 0;
-
-    AccelerationCalculator(DistanceCalculator* dc) : _dc(dc) {}
-
     // subclasses can use threads to call this method, so don't use
     // writable private fields in it
-    inline void _doJContrib(
+    inline void doJContrib(
         Vector& aj, PrecType d, PrecType d2, const Vector& diffEc, const Body& body
     ) const {
-        const auto diffEq = diffEc*body.bfrm->ecToEq(_time, SECOND);
+        const auto& diffEq = diffEc*body.bfrm->ecToEq(_time, SECOND);
         const auto& x = diffEq[0];
         const auto& y = diffEq[1];
         const auto& z = diffEq[2];
@@ -204,7 +195,7 @@ protected:
                                     if (doJ10) {
                                         auto r10 = r8*r2;
                                         cr = body.c[10]/r10;
-                                        ff = 348*cr*(
+                                        ff = 384*cr*(
                                              -0.08203125 + 5.33203125*z_d2
                                              - 53.3203125*z_d4 + 181.2890625*z_d6
                                              - 246.03515625*z_d8
@@ -230,6 +221,14 @@ protected:
         aj = aj * body.bfrm->eqToEc(_time, SECOND);
     }
 
+protected:
+
+    DistanceCalculator *_dc;
+    // system time, for things like ecliptic to equatorial rotation matrices which
+    // are time dependent
+    PrecType _time = 0;
+
+    AccelerationCalculator(DistanceCalculator* dc) : _dc(dc) {}
 };
 
 }

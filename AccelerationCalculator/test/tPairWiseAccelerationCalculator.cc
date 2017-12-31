@@ -54,7 +54,7 @@ TEST(PairWiseAccelerationCalculator, compute) {
 	    -0.0024769460147473221
 	};
 	cout << expec << endl;
-	    cout << a[0] << endl;
+	cout << a[0] << endl;
 	//ASSERT_TRUE(near(expec, a[0], 1e-8, 1e-8));
     ASSERT_DOUBLE_EQ(expec[0], a[0][0]);
     ASSERT_DOUBLE_EQ(expec[1], a[0][1]);
@@ -77,6 +77,63 @@ TEST(PairWiseAccelerationCalculator, compute) {
     ASSERT_DOUBLE_EQ(expec[1], a[2][1]);
     ASSERT_DOUBLE_EQ(expec[2], a[2][2]);
 }
+
+class MyBFRM: public BodyFrameRotMatrix {
+public:
+    virtual ~MyBFRM() {};
+
+    virtual const RotMatrix3x3& ecToEq(PrecType, TimeUnit) const {
+        const static RotMatrix3x3 m;
+        return m;
+    }
+
+    virtual const RotMatrix3x3& eqToEc(PrecType, TimeUnit) const {
+        const static RotMatrix3x3 m;
+        return m;
+    }
+};
+
+TEST(PairWiseAccelerationCalculator, doJContrib) {
+    Body body0;
+    body0.mu = 3.8e7;
+    body0.radius = 60300;
+    body0.x = {0, 0, 0};
+    vector<PrecType> j;
+    for (auto i=0; i<12; ++i) {
+        j.push_back(250* pow(i, 6));
+    }
+    body0.j.reset(new vector<PrecType>(j));
+    body0.bfrm.reset(new MyBFRM());
+    double d = 300000;
+    double y = 150000;
+    double z = 1000;
+    double x = sqrt(d*d - y*y - z*z);
+    vector<PrecType> f {
+        0, 0, 3.0, 0.5, 2.5, 0.375, 0.875, 0.0625,
+        0.5625, 0.0390625, 0.0859375
+    };
+    auto n = body0.j->size();
+    body0.c.resize(n);
+    for (uint i=0; i<n ; ++i) {
+        body0.c[i] = f[i]*body0.j->operator[](i)*body0.mu;
+    }
+    Body body1;
+    body1.mu = 2;
+    body1.x = {x, y, z};
+    vector<Body> bodies {body0, body1};
+    UnthreadedDistanceCalculator udc;
+    PairWiseAccelerationCalculator pwac(&udc, &bodies);
+    Vector a;
+    pwac.doJContrib(a, d, d*d, body1.x, body0);
+    Vector expec(
+        0.30655222076432748, 0.17698931821580446,
+        0.21462617201824341
+    );
+    ASSERT_DOUBLE_EQ(expec[0], a[0]);
+    ASSERT_DOUBLE_EQ(expec[1], a[1]);
+    ASSERT_DOUBLE_EQ(expec[2], a[2]);
+}
+
 
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);

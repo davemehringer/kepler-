@@ -1021,7 +1021,7 @@ void  SSObjects::_initBodies() {
 		    auto n = b.j->size();
 		    b.c.resize(n);
 		    for (uint i=0; i<n ; ++i) {
-		        b.c[i] = f[i] * b.j->operator [](i)*b.mu;
+		        b.c[i] = f[i] * b.j->operator[](i)*b.mu;
 		    }
 		}
 	}
